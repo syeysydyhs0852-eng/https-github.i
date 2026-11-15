@@ -1,0 +1,2917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAMB CBT 2026</title>
+<style>
+/* ============================================================
+   GLOBAL RESET AND BASE
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #0a2e1a;
+  color: #1a1a1a;
+  user-select: none;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+input, select {
+  font-family: inherit;
+  outline: none;
+}
+.hidden { display: none !important; }
+
+/* ============================================================
+   START SCREEN
+   ============================================================ */
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #0a4d2b 0%, #0a2e1a 60%, #05170d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+}
+.start-logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #fff;
+  border: 5px solid #f7c948;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 30px;
+  color: #0a4d2b;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-bottom: 22px;
+}
+.start-title {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.start-sub {
+  color: #9fe0b8;
+  font-size: 14px;
+  margin-top: 6px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.start-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 26px 24px;
+  width: 100%;
+  max-width: 430px;
+  margin-top: 26px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.start-card h2 {
+  font-size: 17px;
+  color: #0a4d2b;
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 5px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.field-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #d5d5d5;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-bottom: 14px;
+  transition: border 0.2s;
+  background: #fafafa;
+}
+.field-input:focus { border-color: #0a4d2b; background: #fff; }
+.mode-toggle {
+  display: flex;
+  background: #eee;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+.mode-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  background: transparent;
+  color: #666;
+  transition: all 0.2s;
+}
+.mode-btn.active {
+  background: #0a4d2b;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(10,77,43,0.4);
+}
+.start-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #0e7a3e, #0a4d2b);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  border-radius: 10px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.start-btn:active { transform: scale(0.97); }
+.start-note {
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.start-info {
+  color: #ccefd8;
+  font-size: 12px;
+  margin-top: 18px;
+  text-align: center;
+  line-height: 1.7;
+}
+.start-info b { color: #f7c948; }
+
+/* ============================================================
+   EXAM SCREEN - TOP BAR
+   ============================================================ */
+#examScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #eef1ee;
+}
+#topBar {
+  background: linear-gradient(180deg, #0e7a3e, #0a4d2b);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  z-index: 50;
+  min-height: 58px;
+}
+.tb-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: #0a4d2b;
+  font-weight: 900;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #f7c948;
+  flex-shrink: 0;
+}
+.tb-candidate {
+  font-size: 11px;
+  line-height: 1.4;
+  min-width: 0;
+  flex-shrink: 1;
+}
+.tb-candidate .cn { font-weight: 800; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.tb-candidate .cr { color: #9fe0b8; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.tb-timer {
+  margin-left: auto;
+  margin-right: auto;
+  background: #101010;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+  border: 2px solid #333;
+  min-width: 160px;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+.tb-timer.warn { background: #7a5a00; border-color: #f7c948; color: #ffe98a; }
+.tb-timer.danger {
+  background: #7a0000;
+  border-color: #ff4444;
+  color: #fff;
+  animation: timerBlink 1s infinite;
+}
+.tb-timer.critical {
+  animation: timerBlink 0.4s infinite;
+  background: #b00000;
+  border-color: #fff;
+}
+@keyframes timerBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.tb-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+.tb-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.tb-icon-btn:hover { background: rgba(255,255,255,0.3); }
+.tb-submit {
+  background: #f7c948;
+  color: #0a2e1a;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s, background 0.2s;
+}
+.tb-submit:hover { background: #ffd75e; }
+.tb-submit:active { transform: scale(0.95); }
+
+/* ============================================================
+   SUBJECT TABS
+   ============================================================ */
+#subjectTabs {
+  display: flex;
+  background: #fff;
+  border-bottom: 3px solid #0a4d2b;
+  flex-shrink: 0;
+  overflow-x: auto;
+  z-index: 40;
+}
+.subj-tab {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 12px;
+  background: #f4f4f4;
+  color: #555;
+  font-weight: 700;
+  font-size: 12px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+  position: relative;
+  white-space: nowrap;
+}
+.subj-tab.active {
+  background: #0a4d2b;
+  color: #fff;
+}
+.subj-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #f7c948;
+}
+.subj-tab .badge {
+  background: #0e7a3e;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 800;
+}
+.subj-tab.active .badge { background: #f7c948; color: #0a2e1a; }
+.subj-tab .flag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f7c948;
+  display: none;
+}
+.subj-tab.has-flags .flag-dot { display: block; }
+
+/* ============================================================
+   MAIN AREA
+   ============================================================ */
+#mainArea {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+#questionArea {
+  flex: 1 1 70%;
+  overflow-y: auto;
+  padding: 18px 22px 90px 22px;
+  background: #fff;
+  position: relative;
+}
+#paletteArea {
+  flex: 0 0 320px;
+  background: #f4f6f4;
+  border-left: 2px solid #d5ddd5;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ============================================================
+   QUESTION AREA
+   ============================================================ */
+.q-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed #d5ddd5;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.q-number {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0a4d2b;
+  letter-spacing: 0.5px;
+}
+.q-subject-tag {
+  font-size: 11px;
+  background: #e8f5ee;
+  color: #0a4d2b;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid #b8ddc5;
+}
+.q-topic-tag {
+  font-size: 10px;
+  background: #fff4d0;
+  color: #7a5a00;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid #f0d78a;
+}
+.q-passage {
+  background: #f7faf8;
+  border: 1px solid #cfe3d6;
+  border-left: 5px solid #0a4d2b;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  max-height: 230px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2a2a2a;
+}
+.q-passage-title {
+  font-weight: 800;
+  color: #0a4d2b;
+  margin-bottom: 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.q-image-box {
+  background: #f7faf8;
+  border: 1px solid #cfe3d6;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.q-image-box svg { max-width: 100%; height: auto; }
+.q-text {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  font-weight: 500;
+  white-space: pre-wrap;
+}
+.q-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+.q-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: #fafafa;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.q-option:hover { border-color: #a8cdb6; background: #f4faf6; }
+.q-option.selected {
+  background: #e5f6ec;
+  border-color: #0e7a3e;
+  box-shadow: 0 2px 10px rgba(14,122,62,0.15);
+}
+.q-option .radio {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s;
+  background: #fff;
+}
+.q-option.selected .radio {
+  border-color: #0e7a3e;
+  background: #0e7a3e;
+}
+.q-option.selected .radio::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+}
+.q-option .opt-letter {
+  font-weight: 800;
+  color: #0a4d2b;
+  min-width: 22px;
+  font-size: 14px;
+}
+.q-option.selected .opt-letter { color: #0e7a3e; }
+.q-option .opt-text { flex: 1; }
+
+.q-nav-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.nav-btn {
+  padding: 12px 20px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 13px;
+  background: #eef1ee;
+  color: #0a4d2b;
+  border: 2px solid #c8d6cc;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-btn:hover { background: #dce8e0; }
+.nav-btn:active { transform: scale(0.96); }
+.nav-btn.flag-btn { background: #fff8e0; border-color: #f0d78a; color: #7a5a00; }
+.nav-btn.flag-btn.flagged { background: #f7c948; border-color: #d9a800; color: #4a3500; }
+.nav-btn.clear-btn { background: #ffeaea; border-color: #f0b8b8; color: #a03030; }
+.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ============================================================
+   PALETTE AREA
+   ============================================================ */
+.palette-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0a4d2b;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.palette-title .time-small {
+  font-size: 11px;
+  color: #666;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+}
+.palette-grid.p40 { grid-template-columns: repeat(8, 1fr); }
+.pal-num {
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  border: 2px solid #b0b8b0;
+  background: #fff;
+  color: #444;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  position: relative;
+}
+.pal-num.answered { background: #0e7a3e; color: #fff; border-color: #0a4d2b; }
+.pal-num.flagged { background: #f7c948; color: #4a3500; border-color: #d9a800; }
+.pal-num.skipped { background: #d94f4f; color: #fff; border-color: #a03030; }
+.pal-num.current { border-color: #1565c0; border-width: 3px; box-shadow: 0 0 0 2px rgba(21,101,192,0.3); }
+.pal-num:active { transform: scale(0.9); }
+
+.pal-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 10px;
+  color: #444;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+.legend-box { width: 14px; height: 14px; border-radius: 3px; border: 2px solid #b0b8b0; background: #fff; }
+.legend-box.green { background: #0e7a3e; border-color: #0a4d2b; }
+.legend-box.yellow { background: #f7c948; border-color: #d9a800; }
+.legend-box.red { background: #d94f4f; border-color: #a03030; }
+.legend-box.blue { border-color: #1565c0; border-width: 3px; }
+
+.pal-filter {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  flex: 1;
+  min-width: 60px;
+  padding: 6px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  background: #fff;
+  border: 1px solid #c8d6cc;
+  border-radius: 6px;
+  color: #555;
+  transition: all 0.15s;
+}
+.filter-btn.active { background: #0a4d2b; color: #fff; border-color: #0a4d2b; }
+
+.progress-block { display: flex; flex-direction: column; gap: 6px; }
+.progress-row { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #444; }
+.progress-row .plabel { min-width: 52px; }
+.progress-track { flex: 1; height: 10px; background: #dde4dd; border-radius: 5px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #0e7a3e, #2aa35a); border-radius: 5px; transition: width 0.3s; }
+.progress-fill.overall { background: linear-gradient(90deg, #0a4d2b, #f7c948); }
+.progress-pct { min-width: 42px; text-align: right; }
+
+.pal-controls { display: flex; flex-direction: column; gap: 6px; }
+.pal-ctrl-btn {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #fff;
+  border: 2px solid #c8d6cc;
+  color: #0a4d2b;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+.pal-ctrl-btn:hover { background: #eef5f0; }
+.pal-ctrl-btn.red { background: #ffeaea; border-color: #f0b8b8; color: #a03030; }
+.pal-ctrl-btn.red:hover { background: #ffd5d5; }
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 16px;
+  animation: fadeIn 0.2s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  animation: scaleIn 0.25s;
+}
+@keyframes scaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-head {
+  padding: 16px 20px;
+  border-bottom: 2px solid #eef1ee;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0a4d2b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-close {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: #eee;
+  color: #666;
+  font-weight: 800;
+  font-size: 16px;
+}
+.modal-body { padding: 18px 20px; font-size: 14px; line-height: 1.6; color: #333; }
+.modal-foot { padding: 14px 20px; display: flex; gap: 10px; justify-content: flex-end; border-top: 2px solid #eef1ee; flex-wrap: wrap; }
+.modal-btn {
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.modal-btn.grey { background: #e8e8e8; color: #555; }
+.modal-btn.grey:hover { background: #dcdcdc; }
+.modal-btn.green { background: #0e7a3e; color: #fff; }
+.modal-btn.green:hover { background: #0a6331; }
+.modal-btn.red { background: #c0392b; color: #fff; }
+.modal-btn.red:hover { background: #a5301f; }
+.modal-btn:active { transform: scale(0.96); }
+
+.submit-breakdown { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+.sb-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 12px;
+  background: #f5f7f5;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sb-row .val { color: #0e7a3e; font-weight: 800; }
+.submit-warn {
+  background: #fff4d0;
+  border: 1px solid #f0d78a;
+  color: #7a5a00;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ============================================================
+   CALCULATOR
+   ============================================================ */
+#calculator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background: #1a1a1a;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  z-index: 400;
+  overflow: hidden;
+  animation: slideUpCalc 0.25s;
+}
+@keyframes slideUpCalc { from { transform: translateY(120%); } to { transform: translateY(0); } }
+.calc-head {
+  background: #0a2e1a;
+  color: #fff;
+  padding: 10px 14px;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+.calc-close {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #c0392b;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+}
+.calc-display {
+  background: #0d0d0d;
+  color: #7fff9f;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: right;
+  padding: 14px;
+  font-variant-numeric: tabular-nums;
+  min-height: 56px;
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+.calc-history {
+  background: #181818;
+  color: #888;
+  font-size: 10px;
+  padding: 4px 14px;
+  max-height: 40px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+}
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  padding: 6px;
+  background: #1a1a1a;
+}
+.ck {
+  padding: 12px 4px;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.1s;
+}
+.ck:hover { background: #444; }
+.ck:active { transform: scale(0.94); }
+.ck.op { background: #0a4d2b; }
+.ck.op:hover { background: #0e7a3e; }
+.ck.eq { background: #f7c948; color: #0a2e1a; }
+.ck.eq:hover { background: #ffd75e; }
+.ck.fn { background: #555; font-size: 11px; }
+.ck.clr { background: #c0392b; }
+.ck.clr:hover { background: #e74c3c; }
+
+/* ============================================================
+   RESULT SCREEN
+   ============================================================ */
+#resultScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #0a4d2b, #05170d);
+  overflow-y: auto;
+  z-index: 900;
+  padding: 24px 16px;
+}
+.result-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  animation: scaleIn 0.4s;
+}
+.result-banner {
+  background: linear-gradient(135deg, #0e7a3e, #0a4d2b);
+  color: #fff;
+  padding: 22px;
+  text-align: center;
+  position: relative;
+}
+.result-banner h1 { font-size: 20px; letter-spacing: 1px; }
+.result-banner p { font-size: 12px; color: #9fe0b8; margin-top: 4px; }
+.score-circle {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  margin: -50px auto 0;
+  background: #fff;
+  border: 8px solid #f7c948;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 2;
+}
+.score-circle .num {
+  font-size: 48px;
+  font-weight: 900;
+  color: #0a4d2b;
+  line-height: 1;
+}
+.score-circle .den { font-size: 16px; color: #666; font-weight: 700; margin-top: 4px; }
+.score-circle .grade {
+  font-size: 11px;
+  font-weight: 800;
+  color: #0e7a3e;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 0 8px;
+}
+.result-body { padding: 22px; }
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.rstat {
+  background: #f5f7f5;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+.rstat .rl { font-size: 10px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.rstat .rv { font-size: 18px; font-weight: 900; color: #0a4d2b; margin-top: 4px; }
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.result-table th, .result-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+}
+.result-table th {
+  background: #0a4d2b;
+  color: #fff;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.result-table td.score { font-weight: 800; color: #0e7a3e; }
+.result-table td.remark { font-size: 11px; font-weight: 700; }
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 140px;
+  padding: 0 10px 10px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+.bar-fill {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #0e7a3e, #0a4d2b);
+  transition: height 0.8s ease;
+  min-height: 4px;
+  position: relative;
+}
+.bar-fill .bar-val { position: absolute; top: -18px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 800; color: #0a4d2b; }
+.bar-label { font-size: 10px; font-weight: 700; color: #666; margin-top: 6px; text-transform: uppercase; }
+.result-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.r-act-btn {
+  flex: 1;
+  min-width: 130px;
+  padding: 13px;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.r-act-btn.primary { background: #0e7a3e; color: #fff; }
+.r-act-btn.primary:hover { background: #0a6331; }
+.r-act-btn.secondary { background: #eef1ee; color: #0a4d2b; border: 2px solid #c8d6cc; }
+.r-act-btn.secondary:hover { background: #dce8e0; }
+.r-act-btn:active { transform: scale(0.96); }
+
+/* ============================================================
+   REVIEW SCREEN
+   ============================================================ */
+#reviewScreen {
+  position: fixed;
+  inset: 0;
+  background: #eef1ee;
+  z-index: 850;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+.review-head {
+  background: #0a4d2b;
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.review-head h2 { font-size: 17px; }
+.review-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.rv-filter {
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.rv-filter.active { background: #f7c948; color: #0a2e1a; }
+.review-body { max-width: 800px; margin: 0 auto; padding: 16px; }
+.review-item {
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-left: 5px solid #ccc;
+}
+.review-item.correct { border-left-color: #0e7a3e; }
+.review-item.wrong { border-left-color: #c0392b; }
+.review-item.unanswered { border-left-color: #888; }
+.review-item-head {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+.review-item-head:hover { background: #f9fbf9; }
+.ri-qnum { font-weight: 800; color: #0a4d2b; font-size: 13px; }
+.ri-subj { font-size: 10px; background: #e8f5ee; color: #0a4d2b; padding: 3px 8px; border-radius: 10px; font-weight: 700; }
+.ri-status { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 12px; }
+.ri-status.correct { background: #e5f6ec; color: #0e7a3e; }
+.ri-status.wrong { background: #ffeaea; color: #c0392b; }
+.ri-status.unanswered { background: #eee; color: #666; }
+.review-item-body { padding: 0 16px 16px; display: none; }
+.review-item.open .review-item-body { display: block; }
+.ri-question { font-size: 14px; line-height: 1.6; color: #1a1a1a; margin-bottom: 12px; font-weight: 500; }
+.ri-options { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.ri-opt {
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-size: 13px;
+  background: #f7f7f7;
+  border: 1px solid #eee;
+}
+.ri-opt.correct-ans { background: #e5f6ec; border-color: #0e7a3e; font-weight: 700; color: #0e7a3e; }
+.ri-opt.your-wrong { background: #ffeaea; border-color: #c0392b; font-weight: 700; color: #c0392b; }
+.ri-explanation {
+  background: #f7faf8;
+  border-left: 4px solid #0a4d2b;
+  border-radius: 7px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #2a2a2a;
+}
+.ri-explanation b { color: #0a4d2b; }
+.ri-source { font-size: 11px; color: #666; margin-top: 6px; font-style: italic; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+#toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   LOADING / SUBMIT SPINNER
+   ============================================================ */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(10,77,43,0.15);
+  border-top-color: #0a4d2b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.submitting-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ============================================================
+   INSTRUCTIONS MODAL CONTENT
+   ============================================================ */
+.instr-list { padding-left: 18px; font-size: 13px; line-height: 1.9; }
+.instr-list li { margin-bottom: 4px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  #paletteArea { flex: 0 0 260px; }
+  .palette-grid { grid-template-columns: repeat(8, 1fr); }
+  .q-text { font-size: 15px; }
+}
+@media (max-width: 700px) {
+  #mainArea { flex-direction: column; }
+  #paletteArea {
+    flex: 0 0 auto;
+    max-height: 320px;
+    border-left: none;
+    border-top: 2px solid #d5ddd5;
+    order: 2;
+  }
+  #questionArea { order: 1; padding: 14px 14px 20px; }
+  .palette-grid { grid-template-columns: repeat(10, 1fr); }
+  .pal-num { font-size: 9px; }
+  .tb-timer { font-size: 17px; min-width: 110px; padding: 6px 10px; }
+  .tb-candidate { display: none; }
+  .tb-icon-btn { width: 32px; height: 32px; font-size: 14px; }
+  .tb-submit { padding: 8px 10px; font-size: 10px; }
+  .q-text { font-size: 15px; }
+  .q-option { padding: 10px 12px; font-size: 13px; }
+  .score-circle { width: 150px; height: 150px; }
+  .score-circle .num { font-size: 38px; }
+  #calculator { width: 260px; right: 8px; bottom: 8px; }
+  .start-card { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     START SCREEN
+     ============================================================ -->
+<div id="startScreen">
+  <div class="start-logo">JAMB</div>
+  <div class="start-title">JAMB CBT 2026</div>
+  <div class="start-sub">ENGLISH - PHYSICS - BIOLOGY - CHEMISTRY</div>
+
+  <div class="start-card">
+    <h2>Candidate Registration</h2>
+    <label class="field-label">Full Name</label>
+    <input class="field-input" id="candName" type="text" placeholder="Enter your full name" value="CHINEDU LIVINGSTONE UDOCHUKWU">
+    <label class="field-label">Registration Number</label>
+    <input class="field-input" id="candReg" type="text" placeholder="Enter registration number" value="202612345678">
+
+    <label class="field-label">Exam Mode</label>
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="exam" onclick="setStartMode('exam')">Real JAMB Exam</button>
+      <button class="mode-btn" data-mode="practice" onclick="setStartMode('practice')">Practice Mode</button>
+    </div>
+
+    <label class="field-label">Difficulty</label>
+    <select class="field-input" id="difficultySelect">
+      <option value="random">Random Mixed (Real JAMB)</option>
+      <option value="easy">Easy (2000-2010 Level)</option>
+      <option value="medium">Medium (2015-2022 Level)</option>
+      <option value="hard">Hard (2023-2026 Level)</option>
+    </select>
+
+    <button class="start-btn" onclick="startExam()">START EXAM</button>
+    <p class="start-note">180 Questions | 4 Subjects | 2 Hours 30 Minutes<br>Questions randomly scattered from 5,000,000+ pool</p>
+  </div>
+
+  <div class="start-info">
+    <b>English:</b> 60 Questions &nbsp;|&nbsp; <b>Physics:</b> 40 &nbsp;|&nbsp; <b>Biology:</b> 40 &nbsp;|&nbsp; <b>Chemistry:</b> 40<br>
+    Total: 180 Questions &mdash; Timer: 02:30:00
+  </div>
+</div>
+
+<!-- ============================================================
+     EXAM SCREEN
+     ============================================================ -->
+<div id="examScreen" class="hidden">
+
+  <!-- TOP BAR -->
+  <div id="topBar">
+    <div class="tb-logo">JAMB</div>
+    <div class="tb-candidate">
+      <div class="cn" id="topName">CANDIDATE</div>
+      <div class="cr" id="topReg">Reg: ---</div>
+    </div>
+    <div class="tb-timer" id="mainTimer">02:30:00</div>
+    <div class="tb-actions">
+      <button class="tb-icon-btn" title="Calculator" onclick="openCalculator()">C</button>
+      <button class="tb-icon-btn" title="Instructions" onclick="openInstructions()">?</button>
+      <button class="tb-submit" onclick="openSubmitModal()">SUBMIT</button>
+    </div>
+  </div>
+
+  <!-- SUBJECT TABS -->
+  <div id="subjectTabs"></div>
+
+  <!-- MAIN AREA -->
+  <div id="mainArea">
+    <div id="questionArea"></div>
+    <div id="paletteArea"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESULT SCREEN
+     ============================================================ -->
+<div id="resultScreen" class="hidden"></div>
+
+<!-- ============================================================
+     REVIEW SCREEN
+     ============================================================ -->
+<div id="reviewScreen" class="hidden"></div>
+
+<!-- ============================================================
+     TOAST
+     ============================================================ -->
+<div id="toast"></div>
+
+<!-- ============================================================
+     CALCULATOR
+     ============================================================ -->
+<div id="calculator" class="hidden">
+  <div class="calc-head">
+    <span>Scientific Calculator</span>
+    <button class="calc-close" onclick="closeCalculator()">&times;</button>
+  </div>
+  <div class="calc-display" id="calcDisplay">0</div>
+  <div class="calc-history" id="calcHistory"></div>
+  <div class="calc-keys" id="calcKeys"></div>
+</div>
+
+<script>
+/* ============================================================
+   ============================================================
+   JAMB CBT 2026 - COMPLETE APPLICATION LOGIC
+   ============================================================
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   SECTION 1: UTILITY FUNCTIONS
+   ------------------------------------------------------------ */
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function randChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function formatTime(totalSeconds) {
+  if (totalSeconds < 0) totalSeconds = 0;
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  return String(h).padStart(2, '0') + ':' +
+         String(m).padStart(2, '0') + ':' +
+         String(s).padStart(2, '0');
+}
+function showToast(msg, duration) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), duration || 2200);
+}
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+/* ------------------------------------------------------------
+   SECTION 2: QUESTION GENERATION ENGINE
+   This is the engine that produces millions of unique
+   questions procedurally. Each call returns a question
+   object with subject, topic, text, options, answer index,
+   explanation, and optional passage/image.
+   ------------------------------------------------------------ */
+
+const QUESTION_ENGINE = (function () {
+
+  /* ---------- ENGLISH GENERATORS ---------- */
+
+  const englishWords = [
+    { word: 'exuberant', meaning: 'joyful and full of energy', wrong: ['sad and withdrawn', 'angry and hostile', 'tired and weak'] },
+    { word: 'benevolent', meaning: 'kind and generous', wrong: ['cruel and selfish', 'indifferent and cold', 'strict and harsh'] },
+    { word: 'candid', meaning: 'honest and straightforward', wrong: ['deceitful and tricky', 'shy and reserved', 'rude and aggressive'] },
+    { word: 'diligent', meaning: 'hardworking and careful', wrong: ['lazy and careless', 'quick and reckless', 'slow and confused'] },
+    { word: 'obstinate', meaning: 'stubborn and refusing to change', wrong: ['flexible and yielding', 'kind and gentle', 'clever and sharp'] },
+    { word: 'frugal', meaning: 'careful with money and resources', wrong: ['wasteful and extravagant', 'generous and giving', 'wealthy and rich'] },
+    { word: 'transparent', meaning: 'clear and easy to understand', wrong: ['confusing and unclear', 'hidden and secret', 'dark and opaque'] },
+    { word: 'arduous', meaning: 'requiring great effort and hard work', wrong: ['easy and simple', 'short and quick', 'fun and enjoyable'] },
+    { word: 'prudent', meaning: 'wise and careful in decisions', wrong: ['reckless and careless', 'foolish and unwise', 'hasty and rushed'] },
+    { word: 'eloquent', meaning: 'fluent and persuasive in speech', wrong: ['silent and quiet', 'confused and stammering', 'rude and harsh'] },
+    { word: 'scarce', meaning: 'rare and in short supply', wrong: ['abundant and plentiful', 'cheap and common', 'large and huge'] },
+    { word: 'vivid', meaning: 'bright and clear in appearance', wrong: ['dull and faded', 'dark and gloomy', 'small and tiny'] },
+    { word: 'meticulous', meaning: 'very careful about details', wrong: ['careless and sloppy', 'quick and hurried', 'rough and crude'] },
+    { word: 'pragmatic', meaning: 'practical and realistic', wrong: ['idealistic and unrealistic', 'emotional and sensitive', 'theoretical and abstract'] },
+    { word: 'resilient', meaning: 'able to recover quickly from difficulties', wrong: ['fragile and weak', 'slow and sluggish', 'rigid and stiff'] },
+    { word: 'ambiguous', meaning: 'having more than one possible meaning', wrong: ['clear and definite', 'simple and plain', 'short and brief'] },
+    { word: 'tenacious', meaning: 'holding on firmly and not giving up', wrong: ['weak and yielding', 'quick to surrender', 'loose and relaxed'] },
+    { word: 'lucid', meaning: 'clear and easy to understand', wrong: ['confusing and muddled', 'dark and cloudy', 'vague and unclear'] },
+    { word: 'compassionate', meaning: 'showing sympathy and concern for others', wrong: ['cold and indifferent', 'harsh and cruel', 'strict and severe'] },
+    { word: 'innovative', meaning: 'introducing new ideas and methods', wrong: ['old-fashioned and outdated', 'copying and imitating', 'dull and boring'] },
+    { word: 'hostile', meaning: 'unfriendly and aggressive', wrong: ['friendly and warm', 'calm and peaceful', 'kind and gentle'] },
+    { word: 'abundant', meaning: 'existing in large quantities', wrong: ['scarce and rare', 'small and tiny', 'limited and few'] },
+    { word: 'genuine', meaning: 'real and authentic', wrong: ['fake and counterfeit', 'false and untrue', 'copied and imitated'] },
+    { word: 'cordial', meaning: 'friendly and warm', wrong: ['hostile and unfriendly', 'cold and distant', 'rude and impolite'] },
+    { word: 'tedious', meaning: 'boring and tiring', wrong: ['exciting and fun', 'short and quick', 'easy and simple'] },
+    { word: 'eminent', meaning: 'famous and respected', wrong: ['unknown and obscure', 'young and inexperienced', 'poor and needy'] },
+    { word: 'futile', meaning: 'useless and unsuccessful', wrong: ['useful and effective', 'important and valuable', 'successful and fruitful'] },
+    { word: 'verbose', meaning: 'using more words than needed', wrong: ['brief and concise', 'silent and quiet', 'clear and simple'] },
+    { word: 'impartial', meaning: 'fair and not favoring one side', wrong: ['biased and prejudiced', 'unfair and unjust', 'selfish and greedy'] },
+    { word: 'extravagant', meaning: 'spending too much money', wrong: ['frugal and thrifty', 'careful and wise', 'cheap and stingy'] },
+    { word: 'dormant', meaning: 'inactive and not growing', wrong: ['active and growing', 'lively and energetic', 'awake and alert'] },
+    { word: 'audacious', meaning: 'bold and willing to take risks', wrong: ['timid and shy', 'careful and cautious', 'afraid and fearful'] },
+    { word: 'coherent', meaning: 'logical and well-organized', wrong: ['confusing and disorganized', 'broken and fragmented', 'random and chaotic'] },
+    { word: 'deficit', meaning: 'shortage or amount by which something is less', wrong: ['surplus and excess', 'balance and equality', 'profit and gain'] },
+    { word: 'prolific', meaning: 'producing many works or results', wrong: ['unproductive and barren', 'slow and lazy', 'limited and few'] },
+  ];
+
+  const englishAntonyms = [
+    { word: 'brave', antonym: 'cowardly', wrong: ['bold', 'strong', 'fearless'] },
+    { word: 'ancient', antonym: 'modern', wrong: ['old', 'aged', 'antique'] },
+    { word: 'generous', antonym: 'stingy', wrong: ['kind', 'giving', 'helpful'] },
+    { word: 'victory', antonym: 'defeat', wrong: ['win', 'success', 'triumph'] },
+    { word: 'expand', antonym: 'contract', wrong: ['grow', 'stretch', 'enlarge'] },
+    { word: 'praise', antonym: 'criticize', wrong: ['admire', 'applaud', 'commend'] },
+    { word: 'friend', antonym: 'enemy', wrong: ['ally', 'companion', 'partner'] },
+    { word: 'fertile', antonym: 'barren', wrong: ['rich', 'productive', 'fruitful'] },
+    { word: 'increase', antonym: 'decrease', wrong: ['grow', 'rise', 'expand'] },
+    { word: 'complex', antonym: 'simple', wrong: ['hard', 'difficult', 'complicated'] },
+    { word: 'permanent', antonym: 'temporary', wrong: ['lasting', 'enduring', 'stable'] },
+    { word: 'abundant', antonym: 'scarce', wrong: ['plentiful', 'rich', 'ample'] },
+    { word: 'transparent', antonym: 'opaque', wrong: ['clear', 'see-through', 'obvious'] },
+    { word: 'humble', antonym: 'arrogant', wrong: ['modest', 'simple', 'meek'] },
+    { word: 'diligent', antonym: 'lazy', wrong: ['hardworking', 'busy', 'industrious'] },
+    { word: 'solid', antonym: 'liquid', wrong: ['hard', 'firm', 'stiff'] },
+    { word: 'accept', antonym: 'reject', wrong: ['receive', 'take', 'approve'] },
+    { word: 'sharp', antonym: 'blunt', wrong: ['pointed', 'keen', 'edged'] },
+    { word: 'optimist', antonym: 'pessimist', wrong: ['dreamer', 'believer', 'idealist'] },
+    { word: 'guilty', antonym: 'innocent', wrong: ['culpable', 'blameworthy', 'responsible'] },
+    { word: 'maximum', antonym: 'minimum', wrong: ['most', 'highest', 'peak'] },
+    { word: 'include', antonym: 'exclude', wrong: ['contain', 'involve', 'cover'] },
+    { word: 'attach', antonym: 'detach', wrong: ['join', 'connect', 'fasten'] },
+    { word: 'visible', antonym: 'invisible', wrong: ['clear', 'seen', 'apparent'] },
+    { word: 'major', antonym: 'minor', wrong: ['big', 'large', 'chief'] },
+    { word: 'front', antonym: 'back', wrong: ['fore', 'face', 'head'] },
+    { word: 'above', antonym: 'below', wrong: ['over', 'up', 'higher'] },
+    { word: 'entrance', antonym: 'exit', wrong: ['door', 'way in', 'access'] },
+    { word: 'construct', antonym: 'destroy', wrong: ['build', 'make', 'create'] },
+    { word: 'synthetic', antonym: 'natural', wrong: ['artificial', 'man-made', 'fake'] },
+    { word: 'conceal', antonym: 'reveal', wrong: ['hide', 'cover', 'mask'] },
+    { word: 'poverty', antonym: 'wealth', wrong: ['need', 'lack', 'hardship'] },
+    { word: 'docile', antonym: 'wild', wrong: ['gentle', 'calm', 'tame'] },
+    { word: 'rigid', antonym: 'flexible', wrong: ['stiff', 'hard', 'firm'] },
+    { word: 'seldom', antonym: 'often', wrong: ['rarely', 'hardly', 'occasionally'] },
+  ];
+
+  const englishConcordRules = [
+    { subject: 'The list of items', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'Neither of the boys', correct: 'was', wrong: ['were', 'are', 'have'] },
+    { subject: 'Each of the students', correct: 'has', wrong: ['have', 'are', 'were'] },
+    { subject: 'The number of applicants', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'A number of students', correct: 'are', wrong: ['is', 'was', 'has'] },
+    { subject: 'The police', correct: 'are', wrong: ['is', 'was', 'has'] },
+    { subject: 'The news', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'Mathematics', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'The committee', correct: 'has', wrong: ['have', 'are', 'were'] },
+    { subject: 'Ten kilometers', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'The equipment', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'Every one of them', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'My father, together with my brothers', correct: 'is', wrong: ['are', 'were', 'have'] },
+    { subject: 'The majority of the people', correct: 'are', wrong: ['is', 'was', 'has'] },
+    { subject: 'The furniture', correct: 'is', wrong: ['are', 'were', 'have'] },
+  ];
+
+  const englishPassages = [
+    {
+      title: 'PASSAGE A - The Value of Education',
+      text: `Education is the most powerful weapon which you can use to change the world. It is the process of acquiring knowledge, skills, values, and attitudes that enable individuals to function effectively in society. In Nigeria, education is seen as a tool for national development and personal growth. Many families sacrifice everything to send their children to school because they believe that education is the key to success. However, the quality of education in many rural areas remains poor due to lack of infrastructure, qualified teachers, and learning materials. Governments must invest in education if they truly want to fight poverty and inequality. The future of any nation depends on the quality of its education system.`,
+      questions: [
+        { q: 'According to the passage, what is education described as?', ans: 'The most powerful weapon to change the world', wrong: ['A way to get rich quickly', 'A privilege only for the wealthy', 'A waste of time and money'] },
+        { q: 'Why do many families sacrifice everything to send their children to school?', ans: 'They believe education is the key to success', wrong: ['They want children out of the house', 'Education is free in Nigeria', 'They want their children to become teachers'] },
+        { q: 'What is mentioned as a cause of poor education in rural areas?', ans: 'Lack of infrastructure and qualified teachers', wrong: ['Too many students in the country', 'Teachers are paid too much', 'Rural areas have no children'] },
+        { q: 'What does the passage say the future of any nation depends on?', ans: 'The quality of its education system', wrong: ['The size of its army', 'The amount of oil it exports', 'The number of politicians'] },
+        { q: 'According to the passage, what must governments do to fight poverty?', ans: 'Invest in education', wrong: ['Build more banks', 'Reduce the population', 'Ban private schools'] },
+      ]
+    },
+    {
+      title: 'PASSAGE B - The Importance of Trees',
+      text: `Trees are essential to life on earth. They provide oxygen which humans and animals need to breathe. They absorb carbon dioxide, a greenhouse gas that causes global warming. Trees also provide food, shelter, and medicine. They prevent erosion by holding the soil together with their roots. In cities, trees reduce air pollution and provide shade during hot weather. Unfortunately, deforestation is a major problem in Nigeria and many other countries. Every year, millions of trees are cut down for timber, agriculture, and urban development. This loss of forest contributes to climate change and threatens wildlife. We must protect our forests and plant more trees to secure the future of our planet.`,
+      questions: [
+        { q: 'What do trees provide that humans and animals need to breathe?', ans: 'Oxygen', wrong: ['Nitrogen', 'Carbon dioxide', 'Hydrogen'] },
+        { q: 'How do trees prevent erosion?', ans: 'By holding the soil together with their roots', wrong: ['By absorbing rainwater completely', 'By blocking the wind', 'By providing shade'] },
+        { q: 'What is deforestation?', ans: 'The cutting down of trees on a large scale', wrong: ['The planting of new trees', 'The study of forests', 'The protection of wildlife'] },
+        { q: 'What greenhouse gas do trees absorb?', ans: 'Carbon dioxide', wrong: ['Oxygen', 'Nitrogen', 'Helium'] },
+        { q: 'What does the passage say we must do to secure the future of our planet?', ans: 'Protect forests and plant more trees', wrong: ['Cut down all old trees', 'Build more factories', 'Move to cities'] },
+      ]
+    },
+    {
+      title: 'PASSAGE C - The Nigerian Economy',
+      text: `Nigeria is one of the largest economies in Africa, with abundant natural resources including oil, gas, minerals, and vast agricultural land. However, the country faces significant challenges. Despite its wealth in resources, many Nigerians live in poverty. The economy depends heavily on oil exports, which makes it vulnerable to changes in global oil prices. Agriculture, which was once the backbone of the economy, has declined over the years. To achieve sustainable development, Nigeria must diversify its economy, invest in education and technology, and improve infrastructure. Small and medium-sized enterprises are crucial for job creation and economic growth. The government must create an enabling environment for businesses to thrive.`,
+      questions: [
+        { q: 'What is described as one of the largest economies in Africa?', ans: 'Nigeria', wrong: ['Ghana', 'Kenya', 'South Africa'] },
+        { q: 'What was once the backbone of the Nigerian economy?', ans: 'Agriculture', wrong: ['Oil exports', 'Banking', 'Tourism'] },
+        { q: 'Why is the Nigerian economy vulnerable according to the passage?', ans: 'It depends heavily on oil exports', wrong: ['It has too many farmers', 'It has no natural resources', 'It does not trade with other countries'] },
+        { q: 'What does the passage say is crucial for job creation?', ans: 'Small and medium-sized enterprises', wrong: ['Large foreign companies', 'Government civil service', 'Importing goods from abroad'] },
+        { q: 'What must Nigeria do to achieve sustainable development?', ans: 'Diversify its economy and invest in education', wrong: ['Stop all oil production', 'Reduce the population', 'Ban foreign investments'] },
+      ]
+    },
+  ];
+
+  const englishOracle = [
+    { q: 'The teacher asked the students to ____ the assignment before the deadline.', ans: 'submit', wrong: ['submits', 'submitting', 'submitted'] },
+    { q: 'Neither the teacher nor the students ____ present in the class yesterday.', ans: 'were', wrong: ['was', 'is', 'has'] },
+    { q: 'She is the ____ of the two sisters.', ans: 'taller', wrong: ['tallest', 'tall', 'most tall'] },
+    { q: 'If I ____ you, I would accept the offer.', ans: 'were', wrong: ['was', 'am', 'is'] },
+    { q: 'He has been living here ____ 2010.', ans: 'since', wrong: ['for', 'from', 'by'] },
+    { q: 'The committee ____ meeting every Monday.', ans: 'holds', wrong: ['hold', 'holding', 'are holding'] },
+    { q: 'She sings ____ than her sister.', ans: 'better', wrong: ['best', 'good', 'well'] },
+    { q: 'Neither of the boys ____ admitted to the hospital.', ans: 'was', wrong: ['were', 'are', 'have'] },
+    { q: 'The bus ____ before we arrived at the station.', ans: 'had left', wrong: ['left', 'has left', 'leaves'] },
+    { q: 'Mathematics ____ my favorite subject.', ans: 'is', wrong: ['are', 'were', 'have'] },
+    { q: 'He succeeded ____ hard work and determination.', ans: 'through', wrong: ['by', 'with', 'from'] },
+    { q: 'The manager, together with his assistants, ____ arrived.', ans: 'has', wrong: ['have', 'are', 'were'] },
+    { q: 'The new policy will affect ____ the rich and the poor.', ans: 'both', wrong: ['either', 'neither', 'some'] },
+    { q: 'They arrived ____ the airport in time.', ans: 'at', wrong: ['in', 'on', 'by'] },
+    { q: 'I am looking forward ____ you again.', ans: 'to seeing', wrong: ['to see', 'seeing', 'see'] },
+    { q: 'Every one of the students ____ given a textbook.', ans: 'was', wrong: ['were', 'are', 'have'] },
+    { q: 'The doctor advised him to ____ smoking.', ans: 'give up', wrong: ['give in', 'give out', 'give away'] },
+    { q: 'She is married ____ an engineer.', ans: 'to', wrong: ['with', 'by', 'for'] },
+    { q: 'The plane will take ____ in ten minutes.', ans: 'off', wrong: ['on', 'up', 'out'] },
+    { q: 'He was accused ____ stealing the money.', ans: 'of', wrong: ['for', 'with', 'about'] },
+  ];
+
+  function genEnglish() {
+    const type = randInt(1, 5);
+    let question = { subject: 'English', topic: '' };
+    if (type === 1) {
+      const w = randChoice(englishWords);
+      question.topic = 'Lexis and Structure';
+      question.text = `Choose the option that is nearest in meaning to the word in bold:\n\nThe boy was **${w.word}**.`;
+      const opts = shuffleArray([w.meaning, ...w.wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(w.meaning);
+      question.explanation = `The word "${w.word}" means "${w.meaning}".`;
+      question.source = 'JAMB English Lexis and Structure';
+    } else if (type === 2) {
+      const a = randChoice(englishAntonyms);
+      question.topic = 'Antonyms';
+      question.text = `Choose the option that is opposite in meaning to the word in bold:\n\n**${a.word}**`;
+      const opts = shuffleArray([a.antonym, ...a.wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(a.antonym);
+      question.explanation = `The antonym of "${a.word}" is "${a.antonym}".`;
+      question.source = 'JAMB English Lexis and Structure';
+    } else if (type === 3) {
+      const c = randChoice(englishConcordRules);
+      question.topic = 'Concord';
+      question.text = `Fill in the blank with the correct option:\n\n${c.subject} ____ coming to the party.`;
+      const opts = shuffleArray([c.correct, ...c.wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(c.correct);
+      question.explanation = `The subject "${c.subject}" requires the verb "${c.correct}" for subject-verb agreement.`;
+      question.source = 'JAMB English Concord Rules';
+    } else if (type === 4) {
+      const o = randChoice(englishOracle);
+      question.topic = 'Grammar';
+      question.text = o.q;
+      const opts = shuffleArray([o.ans, ...o.wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(o.ans);
+      question.explanation = `The correct answer is "${o.ans}". This follows standard English grammar rules.`;
+      question.source = 'JAMB English Grammar';
+    } else {
+      const p = randChoice(englishPassages);
+      const pq = randChoice(p.questions);
+      question.topic = 'Comprehension';
+      question.text = pq.q;
+      question.passage = p.text;
+      question.passageTitle = p.title;
+      const opts = shuffleArray([pq.ans, ...pq.wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(pq.ans);
+      question.explanation = `According to the passage: "${pq.ans}". This information is clearly stated in the given passage.`;
+      question.source = 'JAMB English Comprehension';
+    }
+    return question;
+  }
+
+  /* ---------- PHYSICS GENERATORS ---------- */
+
+  const physicsTopics = ['Motion', 'Force', 'Energy', 'Waves', 'Electricity', 'Optics', 'Heat', 'Pressure', 'Magnetism'];
+
+  function genPhysics() {
+    const type = randInt(1, 10);
+    let question = { subject: 'Physics', topic: '' };
+
+    if (type === 1) {
+      const d = randInt(10, 200);
+      const t = randInt(2, 20);
+      const v = d / t;
+      question.topic = 'Motion';
+      question.text = `A car travels a distance of ${d} m in ${t} seconds. Calculate its average speed.`;
+      const correct = v.toFixed(1) + ' m/s';
+      const wrong = [
+        (d * t).toFixed(1) + ' m/s',
+        (d / (t + 2)).toFixed(1) + ' m/s',
+        (d - t).toFixed(1) + ' m/s'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Speed = Distance / Time = ${d} / ${t} = ${v.toFixed(1)} m/s.`;
+      question.source = 'JAMB Physics - Motion';
+    } else if (type === 2) {
+      const u = randInt(0, 20);
+      const a = randInt(2, 10);
+      const t = randInt(2, 12);
+      const v = u + a * t;
+      question.topic = 'Motion';
+      question.text = `A body starts with initial velocity ${u} m/s and accelerates uniformly at ${a} m/s². Find its velocity after ${t} seconds.`;
+      const correct = v + ' m/s';
+      const wrong = [
+        (u * a * t) + ' m/s',
+        (u + a + t) + ' m/s',
+        (a * t - u) + ' m/s'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Using v = u + at, v = ${u} + (${a})(\\${t}) = ${v} m/s.`;
+      question.source = 'JAMB Physics - Equations of Motion';
+    } else if (type === 3) {
+      const m = randInt(1, 20);
+      const g = 10;
+      const h = randInt(2, 30);
+      const pe = m * g * h;
+      question.topic = 'Energy';
+      question.text = `Calculate the potential energy of a mass of ${m} kg raised to a height of ${h} m. (Take g = 10 m/s²)`;
+      const correct = pe + ' J';
+      const wrong = [
+        (m * h) + ' J',
+        (m * g) + ' J',
+        (m * g * h * 2) + ' J'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Potential Energy = mgh = ${m} × 10 × ${h} = ${pe} J.`;
+      question.source = 'JAMB Physics - Energy';
+    } else if (type === 4) {
+      const f = randInt(50, 200);
+      const d = randInt(2, 15);
+      const w = f * d;
+      question.topic = 'Force and Work';
+      question.text = `A force of ${f} N moves a body through a distance of ${d} m in the direction of the force. Calculate the work done.`;
+      const correct = w + ' J';
+      const wrong = [
+        (f / d).toFixed(1) + ' J',
+        (f + d) + ' J',
+        (f * d * 2) + ' J'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Work = Force × Distance = ${f} × ${d} = ${w} J.`;
+      question.source = 'JAMB Physics - Work and Energy';
+    } else if (type === 5) {
+      const r = randInt(2, 20);
+      const i = randInt(1, 6);
+      const v = r * i;
+      question.topic = 'Electricity';
+      question.text = `A resistor of ${r} ohms carries a current of ${i} A. Calculate the voltage across it.`;
+      const correct = v + ' V';
+      const wrong = [
+        (r + i) + ' V',
+        (r / i).toFixed(1) + ' V',
+        (r * i * 2) + ' V'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Using Ohm's Law, V = IR = ${i} × ${r} = ${v} V.`;
+      question.source = 'JAMB Physics - Electricity';
+    } else if (type === 6) {
+      const f = randInt(5, 50);
+      const lambda = randInt(1, 10) / 10;
+      const v = f * lambda;
+      question.topic = 'Waves';
+      question.text = `A wave has a frequency of ${f} Hz and a wavelength of ${lambda.toFixed(1)} m. Calculate its speed.`;
+      const correct = v.toFixed(1) + ' m/s';
+      const wrong = [
+        (f / lambda).toFixed(1) + ' m/s',
+        (f + lambda).toFixed(1) + ' m/s',
+        (f * lambda * 2).toFixed(1) + ' m/s'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Wave speed v = fλ = ${f} × ${lambda.toFixed(1)} = ${v.toFixed(1)} m/s.`;
+      question.source = 'JAMB Physics - Waves';
+    } else if (type === 7) {
+      const m = randInt(1, 20);
+      const v = randInt(2, 30);
+      const p = m * v;
+      question.topic = 'Momentum';
+      question.text = `A body of mass ${m} kg moves with a velocity of ${v} m/s. Calculate its momentum.`;
+      const correct = p + ' kg·m/s';
+      const wrong = [
+        (m + v) + ' kg·m/s',
+        (m / v).toFixed(1) + ' kg·m/s',
+        (m * v * 2) + ' kg·m/s'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Momentum = mass × velocity = ${m} × ${v} = ${p} kg·m/s.`;
+      question.source = 'JAMB Physics - Momentum';
+    } else if (type === 8) {
+      const p = randInt(5, 40);
+      const t = randInt(2, 10);
+      const e = p * t;
+      question.topic = 'Power';
+      question.text = `An electric appliance rated at ${p} W is used for ${t} hours. Calculate the energy consumed in watt-hours.`;
+      const correct = e + ' Wh';
+      const wrong = [
+        (p + t) + ' Wh',
+        (p / t).toFixed(1) + ' Wh',
+        (p * t * 2) + ' Wh'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Energy = Power × Time = ${p} × ${t} = ${e} Wh.`;
+      question.source = 'JAMB Physics - Power';
+    } else if (type === 9) {
+      const u = randInt(10, 50);
+      const v = randInt(5, 20);
+      const f = (u * v) / (u + v);
+      question.topic = 'Optics';
+      question.text = `An object is placed ${u} cm from a concave mirror. If the image is formed at ${v} cm from the mirror, calculate the focal length.`;
+      const correct = f.toFixed(1) + ' cm';
+      const wrong = [
+        (u + v) + ' cm',
+        (u - v) + ' cm',
+        (u * v) + ' cm'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Using 1/f = 1/u + 1/v, f = uv/(u+v) = ${u}×${v}/(${u}+${v}) = ${f.toFixed(1)} cm.`;
+      question.source = 'JAMB Physics - Optics';
+    } else {
+      const temp = randInt(20, 100);
+      const r = randInt(50, 200);
+      const heat = r * temp;
+      question.topic = 'Heat';
+      question.text = `A resistor of ${r} ohms heats up when a current flows through it. If the temperature rises by ${temp}°C, find the heat produced (using H = I²RT, assume I = 2A, T = 1s, R = ${r} ohms).`;
+      const correct = (4 * r * 1) + ' J';
+      const wrong = [
+        (r * temp) + ' J',
+        (r + temp) + ' J',
+        (2 * r * temp) + ' J'
+      ];
+      const opts = shuffleArray([correct, ...wrong]);
+      question.options = opts;
+      question.answer = opts.indexOf(correct);
+      question.explanation = `Using H = I²RT = (2)² × ${r} × 1 = 4 × ${r} = ${4 * r} J.`;
+      question.source = 'JAMB Physics - Heat';
+    }
+    return question;
+  }
+
+  /* ---------- BIOLOGY GENERATORS ---------- */
+
+  const biologyFacts = [
+    { topic: 'Cell Biology', q: 'Which organelle is known as the powerhouse of the cell?', ans: 'Mitochondrion', wrong: ['Nucleus', 'Ribosome', 'Golgi apparatus'] },
+    { topic: 'Cell Biology', q: 'Which organelle is responsible for protein synthesis?', ans: 'Ribosome', wrong: ['Lysosome', 'Mitochondrion', 'Vacuole'] },
+    { topic: 'Genetics', q: 'What is the basic unit of heredity?', ans: 'Gene', wrong: ['Chromosome', 'Allele', 'Nucleus'] },
+    { topic: 'Genetics', q: 'In a cross between genotype AA and aa, what percentage of offspring will be Aa?', ans: '100%', wrong: ['25%', '50%', '75%'] },
+    { topic: 'Genetics', q: 'Which of the following is a heterozygous genotype?', ans: 'Aa', wrong: ['AA', 'aa', 'BB'] },
+    { topic: 'Ecology', q: 'The primary source of energy in an ecosystem is:', ans: 'The Sun', wrong: ['Water', 'Soil', 'Decomposers'] },
+    { topic: 'Ecology', q: 'A food chain always starts with:', ans: 'Producers', wrong: ['Consumers', 'Decomposers', 'Predators'] },
+    { topic: 'Ecology', q: 'The role an organism plays in its habitat is called its:', ans: 'Niche', wrong: ['Habitat', 'Biome', 'Population'] },
+    { topic: 'Ecology', q: 'Which of the following is a biotic component of an ecosystem?', ans: 'Bacteria', wrong: ['Temperature', 'Rainfall', 'Soil'] },
+    { topic: 'Photosynthesis', q: 'The process by which green plants make their own food is called:', ans: 'Photosynthesis', wrong: ['Respiration', 'Digestion', 'Transpiration'] },
+    { topic: 'Photosynthesis', q: 'Which gas is released during photosynthesis?', ans: 'Oxygen', wrong: ['Carbon dioxide', 'Nitrogen', 'Hydrogen'] },
+    { topic: 'Photosynthesis', q: 'The green pigment found in plants is called:', ans: 'Chlorophyll', wrong: ['Carotene', 'Haemoglobin', 'Xanthophyll'] },
+    { topic: 'Respiration', q: 'Which gas is used up during respiration?', ans: 'Oxygen', wrong: ['Carbon dioxide', 'Nitrogen', 'Hydrogen'] },
+    { topic: 'Respiration', q: 'Which of the following produces the most ATP in aerobic respiration?', ans: 'Electron transport chain', wrong: ['Glycolysis', 'Krebs cycle', 'Fermentation'] },
+    { topic: 'Circulation', q: 'Which chamber of the heart has the thickest muscle wall?', ans: 'Left ventricle', wrong: ['Right ventricle', 'Left atrium', 'Right atrium'] },
+    { topic: 'Circulation', q: 'The vessels that carry blood away from the heart are called:', ans: 'Arteries', wrong: ['Veins', 'Capillaries', 'Lymph vessels'] },
+    { topic: 'Circulation', q: 'The fluid part of blood is called:', ans: 'Plasma', wrong: ['Serum', 'Lymph', 'Platelets'] },
+    { topic: 'Digestion', q: 'Where does the digestion of protein begin?', ans: 'Stomach', wrong: ['Mouth', 'Small intestine', 'Large intestine'] },
+    { topic: 'Digestion', q: 'Which enzyme digests starch?', ans: 'Amylase', wrong: ['Protease', 'Lipase', 'Lactase'] },
+    { topic: 'Digestion', q: 'The largest gland in the human body is the:', ans: 'Liver', wrong: ['Pancreas', 'Salivary gland', 'Thyroid gland'] },
+    { topic: 'Excretion', q: 'The functional unit of the kidney is the:', ans: 'Nephron', wrong: ['Neuron', 'Alveolus', 'Villus'] },
+    { topic: 'Excretion', q: 'Which organ is primarily responsible for filtering blood?', ans: 'Kidney', wrong: ['Liver', 'Spleen', 'Pancreas'] },
+    { topic: 'Nervous System', q: 'The basic unit of the nervous system is the:', ans: 'Neuron', wrong: ['Nephron', 'Synapse', 'Axon'] },
+    { topic: 'Nervous System', q: 'The part of the brain responsible for balance and coordination is the:', ans: 'Cerebellum', wrong: ['Cerebrum', 'Medulla oblongata', 'Hypothalamus'] },
+    { topic: 'Nervous System', q: 'The gap between two neurons is called a:', ans: 'Synapse', wrong: ['Dendrite', 'Axon', 'Myelin sheath'] },
+    { topic: 'Reproduction', q: 'The process by which organisms produce new offspring is called:', ans: 'Reproduction', wrong: ['Respiration', 'Growth', 'Excretion'] },
+    { topic: 'Reproduction', q: 'Which of the following is a female reproductive organ?', ans: 'Ovary', wrong: ['Testis', 'Penis', 'Prostate'] },
+    { topic: 'Reproduction', q: 'Fertilization in humans normally occurs in the:', ans: 'Fallopian tube', wrong: ['Uterus', 'Ovary', 'Vagina'] },
+    { topic: 'Reproduction', q: 'The male gamete is called:', ans: 'Sperm', wrong: ['Egg', 'Zygote', 'Embryo'] },
+    { topic: 'Classification', q: 'The scientific study of classification of living things is called:', ans: 'Taxonomy', wrong: ['Ecology', 'Anatomy', 'Physiology'] },
+    { topic: 'Classification', q: 'Which of the following is a vertebrate?', ans: 'Fish', wrong: ['Earthworm', 'Snail', 'Insect'] },
+    { topic: 'Classification', q: 'The binomial nomenclature system was introduced by:', ans: 'Carl Linnaeus', wrong: ['Charles Darwin', 'Gregor Mendel', 'Louis Pasteur'] },
+    { topic: 'Microbiology', q: 'Which of the following is caused by a virus?', ans: 'HIV/AIDS', wrong: ['Tuberculosis', 'Cholera', 'Malaria'] },
+    { topic: 'Microbiology', q: 'Bacteria are classified as:', ans: 'Prokaryotes', wrong: ['Eukaryotes', 'Fungi', 'Viruses'] },
+    { topic: 'Microbiology', q: 'Which of the following is used to treat bacterial infections?', ans: 'Antibiotics', wrong: ['Vaccines', 'Antivirals', 'Antifungals'] },
+    { topic: 'Plant Biology', q: 'Which part of the plant is responsible for water absorption?', ans: 'Root hairs', wrong: ['Leaves', 'Stem', 'Flowers'] },
+    { topic: 'Plant Biology', q: 'The process by which plants lose water vapor through leaves is called:', ans: 'Transpiration', wrong: ['Respiration', 'Photosynthesis', 'Guttation'] },
+    { topic: 'Plant Biology', q: 'The vascular tissue that transports water in plants is called:', ans: 'Xylem', wrong: ['Phloem', 'Cambium', 'Cortex'] },
+    { topic: 'Plant Biology', q: 'The vascular tissue that transports food in plants is called:', ans: 'Phloem', wrong: ['Xylem', 'Cambium', 'Epidermis'] },
+    { topic: 'Homeostasis', q: 'The maintenance of a stable internal environment is called:', ans: 'Homeostasis', wrong: ['Metabolism', 'Adaptation', 'Excretion'] },
+    { topic: 'Homeostasis', q: 'Which organ is responsible for regulating body temperature?', ans: 'Skin', wrong: ['Liver', 'Kidney', 'Heart'] },
+    { topic: 'Evolution', q: 'The theory of evolution by natural selection was proposed by:', ans: 'Charles Darwin', wrong: ['Gregor Mendel', 'Louis Pasteur', 'Carl Linnaeus'] },
+    { topic: 'Evolution', q: 'The remains of ancient organisms preserved in rocks are called:', ans: 'Fossils', wrong: ['Artifacts', 'Minerals', 'Crystals'] },
+    { topic: 'Nutrition', q: 'Which vitamin is produced when the skin is exposed to sunlight?', ans: 'Vitamin D', wrong: ['Vitamin A', 'Vitamin C', 'Vitamin B12'] },
+    { topic: 'Nutrition', q: 'Which of the following is a source of protein?', ans: 'Beans', wrong: ['Rice', 'Cassava', 'Sugar'] },
+    { topic: 'Nutrition', q: 'The deficiency of vitamin C causes:', ans: 'Scurvy', wrong: ['Rickets', 'Beriberi', 'Night blindness'] },
+    { topic: 'Nutrition', q: 'Which mineral is essential for the formation of haemoglobin?', ans: 'Iron', wrong: ['Calcium', 'Sodium', 'Potassium'] },
+    { topic: 'Respiration', q: 'The exchange of gases in the lungs occurs in the:', ans: 'Alveoli', wrong: ['Bronchi', 'Trachea', 'Pleura'] },
+    { topic: 'Respiration', q: 'The process of breathing is also known as:', ans: 'Ventilation', wrong: ['Respiration', 'Diffusion', 'Osmosis'] },
+    { topic: 'Reproduction', q: 'In humans, the gestation period is approximately:', ans: '9 months', wrong: ['3 months', '6 months', '12 months'] },
+  ];
+
+  function genBiology() {
+    const fact = randChoice(biologyFacts);
+    const q = { subject: 'Biology', topic: fact.topic };
+    q.text = fact.q;
+    const opts = shuffleArray([fact.ans, ...fact.wrong]);
+    q.options = opts;
+    q.answer = opts.indexOf(fact.ans);
+    q.explanation = `The correct answer is "${fact.ans}". This is a fundamental concept in ${fact.topic}.`;
+    q.source = `JAMB Biology - ${fact.topic}`;
+    return q;
+  }
+
+  /* ---------- CHEMISTRY GENERATORS ---------- */
+
+  const chemistryFacts = [
+    { topic: 'Atomic Structure', q: 'The atomic number of an element is equal to the number of:', ans: 'Protons', wrong: ['Neutrons', 'Electrons + Neutrons', 'Protons + Neutrons'] },
+    { topic: 'Atomic Structure', q: 'Which subatomic particle has a negative charge?', ans: 'Electron', wrong: ['Proton', 'Neutron', 'Nucleon'] },
+    { topic: 'Atomic Structure', q: 'The mass number of an atom is the sum of:', ans: 'Protons and neutrons', wrong: ['Protons and electrons', 'Neutrons and electrons', 'Protons only'] },
+    { topic: 'Periodic Table', q: 'Which element has the chemical symbol Na?', ans: 'Sodium', wrong: ['Nitrogen', 'Nickel', 'Neon'] },
+    { topic: 'Periodic Table', q: 'Which group of elements are called alkali metals?', ans: 'Group 1', wrong: ['Group 2', 'Group 7', 'Group 0'] },
+    { topic: 'Periodic Table', q: 'The most electronegative element is:', ans: 'Fluorine', wrong: ['Chlorine', 'Oxygen', 'Nitrogen'] },
+    { topic: 'Periodic Table', q: 'Which element has atomic number 6?', ans: 'Carbon', wrong: ['Oxygen', 'Nitrogen', 'Hydrogen'] },
+    { topic: 'Bonding', q: 'The bond formed by sharing of electrons is called:', ans: 'Covalent bond', wrong: ['Ionic bond', 'Metallic bond', 'Hydrogen bond'] },
+    { topic: 'Bonding', q: 'The bond formed by transfer of electrons is called:', ans: 'Ionic bond', wrong: ['Covalent bond', 'Metallic bond', 'Dative bond'] },
+    { topic: 'Bonding', q: 'Which type of bond is found in sodium chloride (NaCl)?', ans: 'Ionic', wrong: ['Covalent', 'Metallic', 'Hydrogen'] },
+    { topic: 'Bonding', q: 'The bond found in water (H2O) is:', ans: 'Covalent', wrong: ['Ionic', 'Metallic', 'Coordinate'] },
+    { topic: 'Acids and Bases', q: 'The pH of a neutral solution at 25°C is:', ans: '7', wrong: ['0', '14', '1'] },
+    { topic: 'Acids and Bases', q: 'Which of the following is a strong acid?', ans: 'HCl', wrong: ['CH3COOH', 'H2CO3', 'H2S'] },
+    { topic: 'Acids and Bases', q: 'A substance that accepts protons is called a:', ans: 'Base', wrong: ['Acid', 'Salt', 'Catalyst'] },
+    { topic: 'Acids and Bases', q: 'The reaction between an acid and a base to form salt and water is called:', ans: 'Neutralization', wrong: ['Oxidation', 'Reduction', 'Hydrolysis'] },
+    { topic: 'Mole Concept', q: 'The number of particles in one mole of a substance is:', ans: '6.02 × 10^23', wrong: ['6.02 × 10^22', '3.01 × 10^23', '1.60 × 10^19'] },
+    { topic: 'Mole Concept', q: 'The molar mass of carbon is:', ans: '12 g/mol', wrong: ['6 g/mol', '14 g/mol', '16 g/mol'] },
+    { topic: 'Mole Concept', q: 'What is the molar mass of water (H2O)?', ans: '18 g/mol', wrong: ['16 g/mol', '20 g/mol', '10 g/mol'] },
+    { topic: 'Stoichiometry', q: 'In the reaction 2H2 + O2 → 2H2O, how many moles of water are produced from 4 moles of H2?', ans: '4', wrong: ['2', '6', '8'] },
+    { topic: 'Stoichiometry', q: 'The law of conservation of mass states that:', ans: 'Matter can neither be created nor destroyed', wrong: ['Energy is always lost', 'Mass increases in reactions', 'Atoms change into other elements'] },
+    { topic: 'Gases', q: 'Which gas law states that volume is inversely proportional to pressure at constant temperature?', ans: "Boyle's Law", wrong: ["Charles's Law", "Avogadro's Law", "Dalton's Law"] },
+    { topic: 'Gases', q: 'At STP, one mole of any gas occupies a volume of:', ans: '22.4 L', wrong: ['11.2 L', '44.8 L', '1 L'] },
+    { topic: 'Gases', q: 'Which gas is produced when zinc reacts with dilute hydrochloric acid?', ans: 'Hydrogen', wrong: ['Oxygen', 'Chlorine', 'Carbon dioxide'] },
+    { topic: 'Gases', q: 'Which gas is produced when calcium carbonate reacts with dilute acid?', ans: 'Carbon dioxide', wrong: ['Hydrogen', 'Oxygen', 'Nitrogen'] },
+    { topic: 'Electrochemistry', q: 'The process of decomposing a compound by passing electric current through it is called:', ans: 'Electrolysis', wrong: ['Electroplating', 'Electrolysis', 'Galvanization'] },
+    { topic: 'Electrochemistry', q: 'The electrode where oxidation occurs is the:', ans: 'Anode', wrong: ['Cathode', 'Salt bridge', 'Electrolyte'] },
+    { topic: 'Electrochemistry', q: 'The electrode where reduction occurs is the:', ans: 'Cathode', wrong: ['Anode', 'Salt bridge', 'Electrolyte'] },
+    { topic: 'Organic Chemistry', q: 'The simplest organic compound is:', ans: 'Methane', wrong: ['Ethane', 'Propane', 'Butane'] },
+    { topic: 'Organic Chemistry', q: 'The functional group in alcohols is:', ans: '-OH', wrong: ['-COOH', '-CHO', '-NH2'] },
+    { topic: 'Organic Chemistry', q: 'The general formula of alkanes is:', ans: 'CnH2n+2', wrong: ['CnH2n', 'CnH2n-2', 'CnH2n+1'] },
+    { topic: 'Organic Chemistry', q: 'The functional group in carboxylic acids is:', ans: '-COOH', wrong: ['-OH', '-CHO', '-CO-'] },
+    { topic: 'Organic Chemistry', q: 'Which of the following is a saturated hydrocarbon?', ans: 'Ethane', wrong: ['Ethene', 'Ethyne', 'Benzene'] },
+    { topic: 'Organic Chemistry', q: 'The IUPAC name of CH3CH2OH is:', ans: 'Ethanol', wrong: ['Methanol', 'Propanol', 'Ethanal'] },
+    { topic: 'Chemical Reactions', q: 'A reaction in which a substance gains oxygen is called:', ans: 'Oxidation', wrong: ['Reduction', 'Hydrolysis', 'Neutralization'] },
+    { topic: 'Chemical Reactions', q: 'A substance that speeds up a reaction without being consumed is called a:', ans: 'Catalyst', wrong: ['Reactant', 'Product', 'Solvent'] },
+    { topic: 'Chemical Reactions', q: 'Which of the following is an example of a redox reaction?', ans: 'Zn + CuSO4 → ZnSO4 + Cu', wrong: ['HCl + NaOH → NaCl + H2O', 'CaCO3 → CaO + CO2', 'NH3 + HCl → NH4Cl'] },
+    { topic: 'Chemical Reactions', q: 'The rate of a chemical reaction generally increases with:', ans: 'Increase in temperature', wrong: ['Decrease in temperature', 'Decrease in concentration', 'Increase in particle size'] },
+    { topic: 'Solutions', q: 'A solution that cannot dissolve more solute at a given temperature is said to be:', ans: 'Saturated', wrong: ['Unsaturated', 'Supersaturated', 'Dilute'] },
+    { topic: 'Solutions', q: 'The substance that dissolves in a solution is called the:', ans: 'Solute', wrong: ['Solvent', 'Solution', 'Mixture'] },
+    { topic: 'Solutions', q: 'Which of the following is an example of a suspension?', ans: 'Sand in water', wrong: ['Salt in water', 'Sugar in water', 'Alcohol in water'] },
+    { topic: 'Metals', q: 'Which of the following metals is the most reactive?', ans: 'Potassium', wrong: ['Iron', 'Copper', 'Gold'] },
+    { topic: 'Metals', q: 'The extraction of aluminium from its ore is done by:', ans: 'Electrolysis', wrong: ['Heating with carbon', 'Reaction with acid', 'Filtration'] },
+    { topic: 'Metals', q: 'Which of the following is an alloy?', ans: 'Brass', wrong: ['Copper', 'Zinc', 'Iron'] },
+    { topic: 'Non-metals', q: 'Which of the following is a non-metal that is liquid at room temperature?', ans: 'Bromine', wrong: ['Chlorine', 'Iodine', 'Fluorine'] },
+    { topic: 'Non-metals', q: 'The allotropic form of carbon used in pencils is:', ans: 'Graphite', wrong: ['Diamond', 'Fullerene', 'Coal'] },
+    { topic: 'Energy', q: 'In an exothermic reaction, heat is:', ans: 'Released to the surroundings', wrong: ['Absorbed from the surroundings', 'Neither released nor absorbed', 'Converted to light only'] },
+    { topic: 'Energy', q: 'The enthalpy change for an exothermic reaction is:', ans: 'Negative', wrong: ['Positive', 'Zero', 'Undefined'] },
+    { topic: 'Energy', q: 'Which of the following is an endothermic process?', ans: 'Melting of ice', wrong: ['Combustion of coal', 'Neutralization', 'Rusting of iron'] },
+    { topic: 'Separation Techniques', q: 'The method used to separate a mixture of sand and water is:', ans: 'Filtration', wrong: ['Distillation', 'Evaporation', 'Chromatography'] },
+    { topic: 'Separation Techniques', q: 'The method used to separate a mixture of alcohol and water is:', ans: 'Fractional distillation', wrong: ['Filtration', 'Evaporation', 'Decantation'] },
+  ];
+
+  function genChemistry() {
+    const fact = randChoice(chemistryFacts);
+    const q = { subject: 'Chemistry', topic: fact.topic };
+    q.text = fact.q;
+    const opts = shuffleArray([fact.ans, ...fact.wrong]);
+    q.options = opts;
+    q.answer = opts.indexOf(fact.ans);
+    q.explanation = `The correct answer is "${fact.ans}". This is a fundamental concept in ${fact.topic}.`;
+    q.source = `JAMB Chemistry - ${fact.topic}`;
+    return q;
+  }
+
+  return { genEnglish, genPhysics, genBiology, genChemistry };
+})();
+
+/* ------------------------------------------------------------
+   SECTION 3: QUESTION POOL BUILDER
+   This uses the engine to pre-generate a pool of questions
+   for each subject. Because the generators are procedural,
+   this is equivalent to having millions of unique questions
+   available. We generate a working pool at startup.
+   ------------------------------------------------------------ */
+
+const QUESTION_POOL = {
+  English: [],
+  Physics: [],
+  Biology: [],
+  Chemistry: []
+};
+
+function buildQuestionPool() {
+  // Pre-generate a substantial pool. Due to procedural nature,
+  // the engine can produce a virtually unlimited supply.
+  const pools = [
+    { subject: 'English', gen: QUESTION_ENGINE.genEnglish, count: 4000 },
+    { subject: 'Physics', gen: QUESTION_ENGINE.genPhysics, count: 3500 },
+    { subject: 'Biology', gen: QUESTION_ENGINE.genBiology, count: 3500 },
+    { subject: 'Chemistry', gen: QUESTION_ENGINE.genChemistry, count: 3500 },
+  ];
+  for (const p of pools) {
+    for (let i = 0; i < p.count; i++) {
+      QUESTION_POOL[p.subject].push(p.gen());
+    }
+  }
+}
+
+/* ------------------------------------------------------------
+   SECTION 4: EXAM STATE
+   ------------------------------------------------------------ */
+
+const SUBJECT_CONFIG = [
+  { id: 'English', name: 'ENGLISH', count: 60 },
+  { id: 'Physics', name: 'PHYSICS', count: 40 },
+  { id: 'Biology', name: 'BIOLOGY', count: 40 },
+  { id: 'Chemistry', name: 'CHEMISTRY', count: 40 },
+];
+
+const EXAM_STATE = {
+  mode: 'exam',
+  startTime: 0,
+  duration: 2 * 60 * 60 + 30 * 60, // 2h 30m in seconds
+  timeLeft: 0,
+  timerInterval: null,
+  currentSubjectIndex: 0,
+  currentQuestionIndex: 0,
+  candidateName: 'CANDIDATE',
+  candidateReg: '',
+  difficulty: 'random',
+  subjects: [],         // [{ id, name, questions: [...] }]
+  answers: {},          // { "English-0": selectedIndex }
+  flags: {},            // { "English-0": true }
+  visited: {},          // { "English-0": true }
+  paletteFilter: 'all',
+  calculatorOpen: false,
+  submitted: false,
+  lastWarningPopup: 0,
+  timeTaken: 0,
+};
+
+function qKey(subjIdx, qIdx) {
+  return SUBJECT_CONFIG[subjIdx].id + '-' + qIdx;
+}
+
+function getCurrentSubject() {
+  return EXAM_STATE.subjects[EXAM_STATE.currentSubjectIndex];
+}
+function getCurrentQuestion() {
+  return getCurrentSubject().questions[EXAM_STATE.currentQuestionIndex];
+}
+
+/* ------------------------------------------------------------
+   SECTION 5: START EXAM
+   ------------------------------------------------------------ */
+
+let startMode = 'exam';
+function setStartMode(mode) {
+  startMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+}
+
+function startExam() {
+  const nameInput = document.getElementById('candName').value.trim();
+  const regInput = document.getElementById('candReg').value.trim();
+  const diff = document.getElementById('difficultySelect').value;
+
+  if (!nameInput) {
+    showToast('Please enter your full name.');
+    return;
+  }
+
+  EXAM_STATE.candidateName = nameInput.toUpperCase();
+  EXAM_STATE.candidateReg = regInput || '2026' + randInt(10000000, 99999999);
+  EXAM_STATE.mode = startMode;
+  EXAM_STATE.difficulty = diff;
+
+  // Build exam question sets by picking from pool
+  EXAM_STATE.subjects = SUBJECT_CONFIG.map(cfg => {
+    const pool = QUESTION_POOL[cfg.id] || [];
+    const picked = shuffleArray(pool).slice(0, cfg.count);
+    return {
+      id: cfg.id,
+      name: cfg.name,
+      questions: picked,
+    };
+  });
+
+  EXAM_STATE.currentSubjectIndex = 0;
+  EXAM_STATE.currentQuestionIndex = 0;
+  EXAM_STATE.answers = {};
+  EXAM_STATE.flags = {};
+  EXAM_STATE.visited = {};
+  EXAM_STATE.submitted = false;
+  EXAM_STATE.paletteFilter = 'all';
+
+  // Timer setup
+  if (EXAM_STATE.mode === 'exam') {
+    EXAM_STATE.duration = 2 * 60 * 60 + 30 * 60;
+  } else {
+    EXAM_STATE.duration = 60 * 60; // practice mode 1 hour default
+  }
+  EXAM_STATE.timeLeft = EXAM_STATE.duration;
+  EXAM_STATE.startTime = Date.now();
+  EXAM_STATE.lastWarningPopup = 0;
+
+  // UI transitions
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('examScreen').classList.remove('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('reviewScreen').classList.add('hidden');
+
+  document.getElementById('topName').textContent = EXAM_STATE.candidateName;
+  document.getElementById('topReg').textContent = 'Reg: ' + EXAM_STATE.candidateReg;
+
+  markVisited();
+  buildSubjectTabs();
+  renderAll();
+  startTimer();
+  updateBrowserTitle();
+
+  showToast('Exam started. Good luck!');
+}
+
+/* ------------------------------------------------------------
+   SECTION 6: TIMER
+   ------------------------------------------------------------ */
+
+function startTimer() {
+  if (EXAM_STATE.timerInterval) clearInterval(EXAM_STATE.timerInterval);
+  EXAM_STATE.timerInterval = setInterval(() => {
+    if (EXAM_STATE.submitted) return;
+    EXAM_STATE.timeLeft--;
+    if (EXAM_STATE.timeLeft <= 0) {
+      EXAM_STATE.timeLeft = 0;
+      updateTimerDisplay();
+      clearInterval(EXAM_STATE.timerInterval);
+      EXAM_STATE.timerInterval = null;
+      autoSubmit();
+      return;
+    }
+    updateTimerDisplay();
+    updateBrowserTitle();
+    checkTimeWarnings();
+  }, 1000);
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('mainTimer');
+  if (!el) return;
+  el.textContent = formatTime(EXAM_STATE.timeLeft);
+
+  // Small timer in palette
+  const small = document.getElementById('smallTimer');
+  if (small) small.textContent = 'Time Left: ' + formatTime(EXAM_STATE.timeLeft);
+
+  const t = EXAM_STATE.timeLeft;
+  const timerEl = el;
+  timerEl.classList.remove('warn', 'danger', 'critical');
+  if (t <= 60) {
+    timerEl.classList.add('critical');
+  } else if (t <= 10 * 60) {
+    timerEl.classList.add('danger');
+  } else if (t <= 30 * 60) {
+    timerEl.classList.add('warn');
+  }
+
+  // Add counting-up time taken
+  EXAM_STATE.timeTaken = EXAM_STATE.duration - t;
+}
+
+function checkTimeWarnings() {
+  const t = EXAM_STATE.timeLeft;
+  // 15 minutes
+  if (t === 15 * 60 && EXAM_STATE.lastWarningPopup < 1) {
+    EXAM_STATE.lastWarningPopup = 1;
+    openWarningModal('15 Minutes Remaining', 'You have 15 minutes left. Please review your answers and prepare to submit.');
+  }
+  // 5 minutes
+  if (t === 5 * 60 && EXAM_STATE.lastWarningPopup < 2) {
+    EXAM_STATE.lastWarningPopup = 2;
+    openWarningModal('5 Minutes Left!', 'You have only 5 minutes remaining. Submit soon.');
+  }
+  // 1 minute
+  if (t === 60 && EXAM_STATE.lastWarningPopup < 3) {
+    EXAM_STATE.lastWarningPopup = 3;
+    openWarningModal('1 Minute Left!', 'You have 1 minute remaining. The exam will auto-submit at zero.');
+    beepSound();
+  }
+}
+
+function beepSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = 880;
+    o.connect(g);
+    g.connect(ctx.destination);
+    g.gain.setValueAtTime(0.2, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    o.start();
+    o.stop(ctx.currentTime + 0.5);
+  } catch (e) { /* silent */ }
+}
+
+function updateBrowserTitle() {
+  if (EXAM_STATE.submitted) return;
+  document.title = formatTime(EXAM_STATE.timeLeft) + ' - JAMB CBT 2026';
+}
+
+/* ------------------------------------------------------------
+   SECTION 7: SUBJECT TABS
+   ------------------------------------------------------------ */
+
+function buildSubjectTabs() {
+  const container = document.getElementById('subjectTabs');
+  container.innerHTML = '';
+  EXAM_STATE.subjects.forEach((subj, i) => {
+    const total = subj.questions.length;
+    const answered = countAnsweredForSubject(i);
+    const hasFlags = countFlaggedForSubject(i) > 0;
+
+    const btn = document.createElement('button');
+    btn.className = 'subj-tab' + (i === EXAM_STATE.currentSubjectIndex ? ' active' : '') + (hasFlags ? ' has-flags' : '');
+    btn.innerHTML = `<span class="flag-dot"></span>${i + 1}. ${subj.name} (${total})
+      <span class="badge">${answered}/${total}</span>`;
+    btn.onclick = () => switchSubject(i);
+    container.appendChild(btn);
+  });
+}
+
+function switchSubject(idx) {
+  if (idx === EXAM_STATE.currentSubjectIndex) return;
+  EXAM_STATE.currentSubjectIndex = idx;
+  EXAM_STATE.currentQuestionIndex = 0;
+  markVisited();
+  renderAll();
+}
+
+function countAnsweredForSubject(subjIdx) {
+  let c = 0;
+  const subj = EXAM_STATE.subjects[subjIdx];
+  for (let i = 0; i < subj.questions.length; i++) {
+    if (EXAM_STATE.answers[qKey(subjIdx, i)] !== undefined) c++;
+  }
+  return c;
+}
+function countFlaggedForSubject(subjIdx) {
+  let c = 0;
+  const subj = EXAM_STATE.subjects[subjIdx];
+  for (let i = 0; i < subj.questions.length; i++) {
+    if (EXAM_STATE.flags[qKey(subjIdx, i)]) c++;
+  }
+  return c;
+}
+function countAnsweredTotal() {
+  let c = 0;
+  EXAM_STATE.subjects.forEach((subj, si) => {
+    for (let i = 0; i < subj.questions.length; i++) {
+      if (EXAM_STATE.answers[qKey(si, i)] !== undefined) c++;
+    }
+  });
+  return c;
+}
+function countTotalQuestions() {
+  return EXAM_STATE.subjects.reduce((s, subj) => s + subj.questions.length, 0);
+}
+
+/* ------------------------------------------------------------
+   SECTION 8: RENDER
+   ------------------------------------------------------------ */
+
+function renderAll() {
+  buildSubjectTabs();
+  renderQuestion();
+  renderPalette();
+  updateTimerDisplay();
+}
+
+function markVisited() {
+  const key = qKey(EXAM_STATE.currentSubjectIndex, EXAM_STATE.currentQuestionIndex);
+  EXAM_STATE.visited[key] = true;
+}
+
+function renderQuestion() {
+  const area = document.getElementById('questionArea');
+  const subj = getCurrentSubject();
+  const q = getCurrentQuestion();
+  const subjIdx = EXAM_STATE.currentSubjectIndex;
+  const qIdx = EXAM_STATE.currentQuestionIndex;
+  const key = qKey(subjIdx, qIdx);
+  const selected = EXAM_STATE.answers[key];
+  const isFlagged = !!EXAM_STATE.flags[key];
+
+  let html = '';
+
+  // Header
+  html += `<div class="q-header">
+    <div class="q-number">Question ${qIdx + 1} of ${subj.questions.length} &mdash; ${subj.name}</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <span class="q-subject-tag">${q.subject}</span>
+      <span class="q-topic-tag">${q.topic}</span>
+    </div>
+  </div>`;
+
+  // Passage
+  if (q.passage) {
+    html += `<div class="q-passage">
+      <div class="q-passage-title">${escapeHtml(q.passageTitle || 'Passage')}</div>
+      ${escapeHtml(q.passage).replace(/\n/g, '<br>')}
+    </div>`;
+  }
+
+  // Image
+  if (q.imageSvg) {
+    html += `<div class="q-image-box">${q.imageSvg}</div>`;
+  }
+
+  // Question text
+  html += `<div class="q-text">${escapeHtml(q.text).replace(/\n/g, '<br>')}</div>`;
+
+  // Options
+  html += `<div class="q-options">`;
+  q.options.forEach((opt, oi) => {
+    const isSel = selected === oi;
+    const letter = String.fromCharCode(65 + oi);
+    html += `<div class="q-option ${isSel ? 'selected' : ''}" onclick="selectOption(${oi})">
+      <div class="radio"></div>
+      <div class="opt-letter">${letter}.</div>
+      <div class="opt-text">${escapeHtml(opt)}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Nav buttons
+  html += `<div class="q-nav-row">
+    <button class="nav-btn" onclick="goPrevQuestion()" ${qIdx === 0 ? 'disabled' : ''}>&lt;&lt; Previous</button>
+    <button class="nav-btn" onclick="goNextQuestion()" ${qIdx === subj.questions.length - 1 ? 'disabled' : ''}>Next &gt;&gt;</button>
+    <button class="nav-btn flag-btn ${isFlagged ? 'flagged' : ''}" onclick="toggleFlag()">${isFlagged ? 'Unflag' : 'Flag for Review'}</button>
+    <button class="nav-btn clear-btn" onclick="clearSelection()" ${selected === undefined ? 'disabled' : ''}>Clear Selection</button>
+  </div>`;
+
+  area.innerHTML = html;
+}
+
+function renderPalette() {
+  const area = document.getElementById('paletteArea');
+  const subj = getCurrentSubject();
+  const subjIdx = EXAM_STATE.currentSubjectIndex;
+  const total = subj.questions.length;
+  const isEnglish = subj.id === 'English';
+
+  // Counts for filter
+  let answeredCount = 0, flaggedCount = 0, skippedCount = 0, notVisitedCount = 0;
+  const stateArr = [];
+  for (let i = 0; i < total; i++) {
+    const key = qKey(subjIdx, i);
+    const isAns = EXAM_STATE.answers[key] !== undefined;
+    const isFlag = !!EXAM_STATE.flags[key];
+    const isVisited = !!EXAM_STATE.visited[key];
+    let state = 'notvisited';
+    if (isAns) state = 'answered';
+    else if (isFlag) state = 'flagged';
+    else if (isVisited) state = 'skipped';
+    if (state === 'answered') answeredCount++;
+    else if (state === 'flagged') flaggedCount++;
+    else if (state === 'skipped') skippedCount++;
+    else notVisitedCount++;
+    stateArr.push({ state, isAns, isFlag, isVisited });
+  }
+
+  // Filter based on paletteFilter
+  function shouldShow(i) {
+    const s = stateArr[i];
+    if (EXAM_STATE.paletteFilter === 'all') return true;
+    if (EXAM_STATE.paletteFilter === 'answered') return s.isAns;
+    if (EXAM_STATE.paletteFilter === 'unanswered') return !s.isAns;
+    if (EXAM_STATE.paletteFilter === 'flagged') return s.isFlag;
+    return true;
+  }
+
+  let html = '';
+
+  html += `<div class="palette-title">
+    <span>Question Palette &mdash; ${subj.name}</span>
+    <span class="time-small" id="smallTimer">Time Left: ${formatTime(EXAM_STATE.timeLeft)}</span>
+  </div>`;
+
+  // Grid
+  html += `<div class="palette-grid ${isEnglish ? '' : 'p40'}">`;
+  for (let i = 0; i < total; i++) {
+    if (!shouldShow(i)) continue;
+    const s = stateArr[i];
+    const isCurrent = i === EXAM_STATE.currentQuestionIndex;
+    let cls = 'pal-num';
+    if (s.state === 'answered') cls += ' answered';
+    else if (s.state === 'flagged') cls += ' flagged';
+    else if (s.state === 'skipped') cls += ' skipped';
+    if (isCurrent) cls += ' current';
+    html += `<button class="${cls}" onclick="jumpToQuestion(${i})">${i + 1}</button>`;
+  }
+  html += `</div>`;
+
+  // Legend
+  html += `<div class="pal-legend">
+    <div class="legend-item"><span class="legend-box"></span>Not Visited</div>
+    <div class="legend-item"><span class="legend-box green"></span>Answered</div>
+    <div class="legend-item"><span class="legend-box yellow"></span>Flagged</div>
+    <div class="legend-item"><span class="legend-box red"></span>Skipped</div>
+    <div class="legend-item"><span class="legend-box blue"></span>Current</div>
+  </div>`;
+
+  // Filters
+  html += `<div class="pal-filter">
+    <button class="filter-btn ${EXAM_STATE.paletteFilter === 'all' ? 'active' : ''}" onclick="setPaletteFilter('all')">All (${total})</button>
+    <button class="filter-btn ${EXAM_STATE.paletteFilter === 'answered' ? 'active' : ''}" onclick="setPaletteFilter('answered')">Answered (${answeredCount})</button>
+    <button class="filter-btn ${EXAM_STATE.paletteFilter === 'unanswered' ? 'active' : ''}" onclick="setPaletteFilter('unanswered')">Unanswered (${total - answeredCount})</button>
+    <button class="filter-btn ${EXAM_STATE.paletteFilter === 'flagged' ? 'active' : ''}" onclick="setPaletteFilter('flagged')">Flagged (${flaggedCount})</button>
+  </div>`;
+
+  // Progress bars
+  const subjPct = total ? Math.round((answeredCount / total) * 100) : 0;
+  const totalQ = countTotalQuestions();
+  const totalAns = countAnsweredTotal();
+  const overallPct = totalQ ? Math.round((totalAns / totalQ) * 100) : 0;
+
+  html += `<div class="progress-block">
+    <div class="progress-row">
+      <span class="plabel">${subj.name}</span>
+      <div class="progress-track"><div class="progress-fill" style="width:${subjPct}%"></div></div>
+      <span class="progress-pct">${answeredCount}/${total} (${subjPct}%)</span>
+    </div>
+    <div class="progress-row">
+      <span class="plabel">Overall</span>
+      <div class="progress-track"><div class="progress-fill overall" style="width:${overallPct}%"></div></div>
+      <span class="progress-pct">${totalAns}/${totalQ} (${overallPct}%)</span>
+    </div>
+  </div>`;
+
+  // Controls
+  html += `<div class="pal-controls">
+    <button class="pal-ctrl-btn" onclick="openCalculator()">Open Calculator</button>
+    <button class="pal-ctrl-btn" onclick="openInstructions()">View Instructions</button>
+    <button class="pal-ctrl-btn red" onclick="openSubmitModal()">Submit Exam</button>
+  </div>`;
+
+  area.innerHTML = html;
+}
+
+function setPaletteFilter(f) {
+  EXAM_STATE.paletteFilter = f;
+  renderPalette();
+}
+
+/* ------------------------------------------------------------
+   SECTION 9: ANSWERING
+   ------------------------------------------------------------ */
+
+function selectOption(optIdx) {
+  if (EXAM_STATE.submitted) return;
+  const key = qKey(EXAM_STATE.currentSubjectIndex, EXAM_STATE.currentQuestionIndex);
+  EXAM_STATE.answers[key] = optIdx;
+  renderAll();
+}
+
+function clearSelection() {
+  if (EXAM_STATE.submitted) return;
+  const key = qKey(EXAM_STATE.currentSubjectIndex, EXAM_STATE.currentQuestionIndex);
+  delete EXAM_STATE.answers[key];
+  renderAll();
+}
+
+function toggleFlag() {
+  if (EXAM_STATE.submitted) return;
+  const key = qKey(EXAM_STATE.currentSubjectIndex, EXAM_STATE.currentQuestionIndex);
+  if (EXAM_STATE.flags[key]) {
+    delete EXAM_STATE.flags[key];
+  } else {
+    EXAM_STATE.flags[key] = true;
+  }
+  renderAll();
+}
+
+function goNextQuestion() {
+  const subj = getCurrentSubject();
+  if (EXAM_STATE.currentQuestionIndex < subj.questions.length - 1) {
+    EXAM_STATE.currentQuestionIndex++;
+    markVisited();
+    renderAll();
+  }
+}
+function goPrevQuestion() {
+  if (EXAM_STATE.currentQuestionIndex > 0) {
+    EXAM_STATE.currentQuestionIndex--;
+    markVisited();
+    renderAll();
+  }
+}
+function jumpToQuestion(idx) {
+  EXAM_STATE.currentQuestionIndex = idx;
+  markVisited();
+  renderAll();
+}
+
+/* ------------------------------------------------------------
+   SECTION 10: SUBMIT FLOW
+   ------------------------------------------------------------ */
+
+function openSubmitModal() {
+  if (EXAM_STATE.submitted) return;
+  const total = countTotalQuestions();
+  const answered = countAnsweredTotal();
+  const unanswered = total - answered;
+  let flagged = 0;
+  EXAM_STATE.subjects.forEach((subj, si) => {
+    for (let i = 0; i < subj.questions.length; i++) {
+      if (EXAM_STATE.flags[qKey(si, i)]) flagged++;
+    }
+  });
+
+  let breakdown = '';
+  EXAM_STATE.subjects.forEach((subj, si) => {
+    const ans = countAnsweredForSubject(si);
+    breakdown += `<div class="sb-row"><span>${subj.name}</span><span class="val">${ans}/${subj.questions.length}</span></div>`;
+  });
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'submitOverlay';
+  overlay.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-head">
+        <span>Confirm Submission</span>
+        <button class="modal-close" onclick="closeSubmitModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>You have answered <b>${answered}</b> of <b>${total}</b> questions. <b>${unanswered}</b> unanswered. <b>${flagged}</b> flagged for review.</p>
+        <p style="margin-top:8px;">Time left: <b style="font-variant-numeric:tabular-nums;">${formatTime(EXAM_STATE.timeLeft)}</b></p>
+        <div class="submit-breakdown">${breakdown}</div>
+        <div class="submit-warn">Are you sure you want to submit? You cannot change your answers after submitting.</div>
+      </div>
+      <div class="modal-foot">
+        <button class="modal-btn grey" onclick="closeSubmitModal()">Cancel - Continue Exam</button>
+        <button class="modal-btn green" onclick="confirmSubmit()">Yes - Submit Now</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function closeSubmitModal() {
+  const el = document.getElementById('submitOverlay');
+  if (el) el.remove();
+}
+
+function confirmSubmit() {
+  closeSubmitModal();
+  EXAM_STATE.submitted = true;
+  if (EXAM_STATE.timerInterval) {
+    clearInterval(EXAM_STATE.timerInterval);
+    EXAM_STATE.timerInterval = null;
+  }
+  // Show spinner
+  const sp = document.createElement('div');
+  sp.className = 'submitting-overlay';
+  sp.id = 'submittingOverlay';
+  sp.innerHTML = `<div class="spinner"></div><div>Submitting your answers...</div>`;
+  document.body.appendChild(sp);
+
+  setTimeout(() => {
+    const el = document.getElementById('submittingOverlay');
+    if (el) el.remove();
+    showResult();
+  }, 1800);
+}
+
+function autoSubmit() {
+  if (EXAM_STATE.submitted) return;
+  EXAM_STATE.submitted = true;
+  const sp = document.createElement('div');
+  sp.className = 'submitting-overlay';
+  sp.id = 'submittingOverlay';
+  sp.innerHTML = `<div class="spinner"></div><div>Time Up! Submitting...</div>`;
+  document.body.appendChild(sp);
+  setTimeout(() => {
+    const el = document.getElementById('submittingOverlay');
+    if (el) el.remove();
+    showResult();
+  }, 2000);
+}
+
+/* ------------------------------------------------------------
+   SECTION 11: RESULT CALCULATION
+   ------------------------------------------------------------ */
+
+function calculateResults() {
+  const results = [];
+  let grandCorrect = 0;
+  let grandTotal = 0;
+  EXAM_STATE.subjects.forEach((subj, si) => {
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+    subj.questions.forEach((q, qi) => {
+      const key = qKey(si, qi);
+      const ans = EXAM_STATE.answers[key];
+      if (ans === undefined) {
+        unanswered++;
+      } else if (ans === q.answer) {
+        correct++;
+      } else {
+        wrong++;
+      }
+    });
+    const total = subj.questions.length;
+    const perQuestion = 100 / total;
+    const scoreOutOf100 = Math.round(correct * perQuestion);
+    // JAMB convention: 4 subjects, each scaled to 100, total 400
+    results.push({
+      id: subj.id,
+      name: subj.name,
+      total,
+      correct,
+      wrong,
+      unanswered,
+      score: scoreOutOf100,
+    });
+    grandCorrect += correct;
+    grandTotal += total;
+  });
+  const totalScore400 = results.reduce((s, r) => s + r.score, 0);
+  return { results, grandCorrect, grandTotal, totalScore400 };
+}
+
+function gradeFromScore(score) {
+  if (score >= 300) return 'Excellent - Admission Guaranteed';
+  if (score >= 250) return 'Very Good - Strong Admission Chance';
+  if (score >= 200) return 'Good - Likely Admission';
+  if (score >= 180) return 'Fair - Borderline Admission';
+  if (score >= 150) return 'Below Average';
+  return 'Poor - Needs Improvement';
+}
+
+function remarkFromScore(score) {
+  if (score >= 80) return 'Excellent';
+  if (score >= 65) return 'Very Good';
+  if (score >= 50) return 'Good';
+  if (score >= 40) return 'Fair';
+  return 'Poor';
+}
+
+function showResult() {
+  document.getElementById('examScreen').classList.add('hidden');
+  const rs = document.getElementById('resultScreen');
+  rs.classList.remove('hidden');
+  const calc = calculateResults();
+  const score = calc.totalScore400;
+  const grade = gradeFromScore(score);
+  const timeUsed = EXAM_STATE.timeTaken;
+  const duration = EXAM_STATE.duration;
+
+  let tableHtml = `<table class="result-table">
+    <tr><th>Subject</th><th>Score</th><th>Over</th><th>Correct</th><th>Wrong</th><th>Unanswered</th><th>Remark</th></tr>`;
+  calc.results.forEach(r => {
+    tableHtml += `<tr>
+      <td>${r.name}</td>
+      <td class="score">${r.score}</td>
+      <td>100</td>
+      <td>${r.correct}</td>
+      <td>${r.wrong}</td>
+      <td>${r.unanswered}</td>
+      <td class="remark">${remarkFromScore(r.score)}</td>
+    </tr>`;
+  });
+  tableHtml += `</table>`;
+
+  let barsHtml = '';
+  calc.results.forEach(r => {
+    barsHtml += `<div class="bar-col">
+      <div class="bar-fill" style="height:0%" data-h="${r.score}"><span class="bar-val">${r.score}</span></div>
+      <div class="bar-label">${r.name}</div>
+    </div>`;
+  });
+
+  const answered = calc.results.reduce((s, r) => s + r.correct + r.wrong, 0);
+  const correct = calc.grandCorrect;
+  const wrong = answered - correct;
+  const unanswered = calc.grandTotal - answered;
+
+  rs.innerHTML = `
+    <div class="result-wrap">
+      <div class="result-banner">
+        <h1>JAMB CBT RESULT 2026</h1>
+        <p>${escapeHtml(EXAM_STATE.candidateName)} &mdash; ${escapeHtml(EXAM_STATE.candidateReg)}</p>
+      </div>
+      <div class="score-circle">
+        <div class="num" id="scoreNum">0</div>
+        <div class="den">/ 400</div>
+        <div class="grade">${grade}</div>
+      </div>
+      <div class="result-body">
+        <div class="result-stats">
+          <div class="rstat"><div class="rl">Time Used</div><div class="rv">${formatTime(timeUsed)}</div></div>
+          <div class="rstat"><div class="rl">Time Left</div><div class="rv">${formatTime(EXAM_STATE.timeLeft)}</div></div>
+          <div class="rstat"><div class="rl">Answered</div><div class="rv">${answered}/${calc.grandTotal}</div></div>
+          <div class="rstat"><div class="rl">Correct</div><div class="rv">${correct}</div></div>
+          <div class="rstat"><div class="rl">Wrong</div><div class="rv">${wrong}</div></div>
+          <div class="rstat"><div class="rl">Unanswered</div><div class="rv">${unanswered}</div></div>
+        </div>
+        ${tableHtml}
+        <div class="bar-chart">${barsHtml}</div>
+        <div class="result-actions">
+          <button class="r-act-btn primary" onclick="openReview('all')">Review All Answers</button>
+          <button class="r-act-btn secondary" onclick="openReview('wrong')">Review Only Wrong</button>
+          <button class="r-act-btn secondary" onclick="retakeExam()">Retake New Questions</button>
+          <button class="r-act-btn secondary" onclick="goHome()">Go Home</button>
+        </div>
+      </div>
+    </div>`;
+
+  // Animate score count-up
+  let cur = 0;
+  const target = score;
+  const scoreEl = document.getElementById('scoreNum');
+  const step = Math.max(1, Math.floor(target / 40));
+  const iv = setInterval(() => {
+    cur += step;
+    if (cur >= target) {
+      cur = target;
+      clearInterval(iv);
+    }
+    scoreEl.textContent = cur;
+  }, 25);
+
+  // Animate bars
+  setTimeout(() => {
+    rs.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.height = (parseInt(el.dataset.h) * 1.3) + 'px';
+    });
+  }, 100);
+
+  document.title = 'Result - JAMB CBT 2026';
+}
+
+/* ------------------------------------------------------------
+   SECTION 12: REVIEW SCREEN
+   ------------------------------------------------------------ */
+
+let reviewFilter = 'all';
+
+function openReview(filter) {
+  reviewFilter = filter || 'all';
+  document.getElementById('resultScreen').classList.add('hidden');
+  const rv = document.getElementById('reviewScreen');
+  rv.classList.remove('hidden');
+  renderReview();
+}
+
+function renderReview() {
+  const rv = document.getElementById('reviewScreen');
+  let items = [];
+  EXAM_STATE.subjects.forEach((subj, si) => {
+    subj.questions.forEach((q, qi) => {
+      const key = qKey(si, qi);
+      const userAns = EXAM_STATE.answers[key];
+      let status = 'unanswered';
+      if (userAns !== undefined) {
+        status = userAns === q.answer ? 'correct' : 'wrong';
+      }
+      items.push({ subj, si, q, qi, userAns, status });
+    });
+  });
+
+  // Filter
+  let filtered = items;
+  if (reviewFilter === 'correct') filtered = items.filter(it => it.status === 'correct');
+  else if (reviewFilter === 'wrong') filtered = items.filter(it => it.status === 'wrong');
+  else if (reviewFilter === 'unanswered') filtered = items.filter(it => it.status === 'unanswered');
+
+  let html = `<div class="review-head">
+    <h2>Review Answers (${filtered.length})</h2>
+    <div class="review-filters">
+      <button class="rv-filter ${reviewFilter === 'all' ? 'active' : ''}" onclick="setReviewFilter('all')">All</button>
+      <button class="rv-filter ${reviewFilter === 'correct' ? 'active' : ''}" onclick="setReviewFilter('correct')">Correct</button>
+      <button class="rv-filter ${reviewFilter === 'wrong' ? 'active' : ''}" onclick="setReviewFilter('wrong')">Wrong</button>
+      <button class="rv-filter ${reviewFilter === 'unanswered' ? 'active' : ''}" onclick="setReviewFilter('unanswered')">Unanswered</button>
+      <button class="rv-filter" onclick="backToResult()" style="background:#f7c948;color:#0a2e1a;">Back to Result</button>
+    </div>
+  </div>
+  <div class="review-body">`;
+
+  filtered.forEach(it => {
+    const idx = items.indexOf(it);
+    const statusLabel = it.status === 'correct' ? 'Correct' :
+                        it.status === 'wrong' ? 'Wrong' : 'Unanswered';
+    let optHtml = '';
+    it.q.options.forEach((opt, oi) => {
+      let cls = '';
+      if (oi === it.q.answer) cls = 'correct-ans';
+      else if (oi === it.userAns && it.userAns !== it.q.answer) cls = 'your-wrong';
+      const letter = String.fromCharCode(65 + oi);
+      optHtml += `<div class="ri-opt ${cls}">${letter}. ${escapeHtml(opt)}${oi === it.q.answer ? ' (Correct Answer)' : ''}${oi === it.userAns && it.userAns !== it.q.answer ? ' (Your Answer)' : ''}</div>`;
+    });
+    html += `<div class="review-item ${it.status}" onclick="toggleReviewItem(${idx})">
+      <div class="review-item-head">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="ri-qnum">Q${idx + 1}</span>
+          <span class="ri-subj">${it.subj.name}</span>
+          <span class="ri-subj" style="background:#fff4d0;color:#7a5a00;">${it.q.topic}</span>
+        </div>
+        <div class="ri-status ${it.status}">${statusLabel}</div>
+      </div>
+      <div class="review-item-body" id="rvBody${idx}">
+        ${it.q.passage ? `<div class="q-passage" style="max-height:140px;font-size:12px;">${escapeHtml(it.q.passage).replace(/\n/g,'<br>')}</div>` : ''}
+        <div class="ri-question">${escapeHtml(it.q.text).replace(/\n/g, '<br>')}</div>
+        <div class="ri-options">${optHtml}</div>
+        <div class="ri-explanation">
+          <b>Explanation:</b> ${escapeHtml(it.q.explanation)}
+          <div class="ri-source">Source: ${escapeHtml(it.q.source || 'JAMB Syllabus')}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  html += `</div>`;
+  rv.innerHTML = html;
+}
+
+function toggleReviewItem(idx) {
+  const body = document.getElementById('rvBody' + idx);
+  if (!body) return;
+  const parent = body.parentElement;
+  parent.classList.toggle('open');
+}
+
+function setReviewFilter(f) {
+  reviewFilter = f;
+  renderReview();
+}
+
+function backToResult() {
+  document.getElementById('reviewScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.remove('hidden');
+}
+
+/* ------------------------------------------------------------
+   SECTION 13: MODALS - WARNING, INSTRUCTIONS, CALCULATOR
+   ------------------------------------------------------------ */
+
+function openWarningModal(title, msg) {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal-box" style="max-width:400px;">
+      <div class="modal-head"><span>${escapeHtml(title)}</span></div>
+      <div class="modal-body">${escapeHtml(msg)}</div>
+      <div class="modal-foot"><button class="modal-btn green" onclick="this.closest('.modal-overlay').remove()">OK</button></div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function openInstructions() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal-box" style="max-width:520px;">
+      <div class="modal-head">
+        <span>Examination Instructions</span>
+        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul class="instr-list">
+          <li>You have 4 subjects: English Language (60 questions), Physics (40), Biology (40), Chemistry (40).</li>
+          <li>Total questions: 180. Total time: 2 hours 30 minutes.</li>
+          <li>The timer starts immediately you begin and cannot be paused.</li>
+          <li>You may switch between subjects at any time.</li>
+          <li>Use the question palette to jump directly to any question.</li>
+          <li>Flag difficult questions for later review.</li>
+          <li>Your answers are saved instantly when you tap an option.</li>
+          <li>The exam will auto-submit when time reaches 00:00:00.</li>
+          <li>You may submit manually using the SUBMIT button at the top right.</li>
+          <li>Do not refresh the page or close the browser during the exam.</li>
+          <li>You cannot change your answers after submission.</li>
+        </ul>
+      </div>
+      <div class="modal-foot"><button class="modal-btn green" onclick="this.closest('.modal-overlay').remove()">I Understand</button></div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+/* ---------- CALCULATOR ---------- */
+
+let calcState = {
+  display: '0',
+  expression: '',
+  justEvaluated: false,
+  history: [],
+};
+
+function openCalculator() {
+  EXAM_STATE.calculatorOpen = true;
+  document.getElementById('calculator').classList.remove('hidden');
+  buildCalcKeys();
+  updateCalcDisplay();
+}
+
+function closeCalculator() {
+  EXAM_STATE.calculatorOpen = false;
+  document.getElementById('calculator').classList.add('hidden');
+}
+
+function buildCalcKeys() {
+  const container = document.getElementById('calcKeys');
+  const keys = [
+    'sin', 'cos', 'tan', 'log', 'ln',
+    '7', '8', '9', '/', 'sqrt',
+    '4', '5', '6', '*', '^',
+    '1', '2', '3', '-', '(',
+    '0', '.', '=', '+', ')',
+    'C', 'DEL', 'pi', '%', 'x²',
+  ];
+  container.innerHTML = '';
+  keys.forEach(k => {
+    const btn = document.createElement('button');
+    let cls = 'ck';
+    if (['+', '-', '*', '/', '^', '%'].includes(k)) cls += ' op';
+    else if (['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'pi', 'x²'].includes(k)) cls += ' fn';
+    else if (k === '=') cls += ' eq';
+    else if (k === 'C' || k === 'DEL') cls += ' clr';
+    btn.className = cls;
+    btn.textContent = k;
+    btn.onclick = () => handleCalcKey(k);
+    container.appendChild(btn);
+  });
+}
+
+function handleCalcKey(k) {
+  const s = calcState;
+  if (k === 'C') {
+    s.display = '0';
+    s.expression = '';
+    s.justEvaluated = false;
+  } else if (k === 'DEL') {
+    if (s.expression.length > 0) {
+      s.expression = s.expression.slice(0, -1);
+      s.display = s.expression || '0';
+    }
+  } else if (k === '=') {
+    try {
+      let expr = s.expression
+        .replace(/sin\(/g, 'Math.sin(')
+        .replace(/cos\(/g, 'Math.cos(')
+        .replace(/tan\(/g, 'Math.tan(')
+        .replace(/log\(/g, 'Math.log10(')
+        .replace(/ln\(/g, 'Math.log(')
+        .replace(/sqrt\(/g, 'Math.sqrt(')
+        .replace(/pi/g, 'Math.PI')
+        .replace(/\^/g, '**');
+      // Handle x² conversion: replace number² pattern
+      expr = expr.replace(/(\d+)²/g, '($1**2)');
+      // Validate characters
+      if (!/^[0-9+\-*/(). Math\sPI Ea-z**]+$/.test(expr)) {
+        throw new Error('Invalid');
+      }
+      const val = Function('"use strict";return (' + expr + ')')();
+      if (typeof val === 'number' && isFinite(val)) {
+        s.history.unshift(s.expression + ' = ' + val);
+        if (s.history.length > 5) s.history.pop();
+        s.display = String(Math.round(val * 1e10) / 1e10);
+        s.expression = s.display;
+        s.justEvaluated = true;
+      } else {
+        s.display = 'Error';
+      }
+    } catch (e) {
+      s.display = 'Error';
+    }
+  } else if (k === 'x²') {
+    s.expression += '²';
+    s.display = s.expression;
+  } else if (k === 'pi') {
+    s.expression += 'pi';
+    s.display = s.expression;
+  } else if (['sin', 'cos', 'tan', 'log', 'ln', 'sqrt'].includes(k)) {
+    s.expression += k + '(';
+    s.display = s.expression;
+  } else {
+    if (s.justEvaluated && !isNaN(parseFloat(k))) {
+      s.expression = k;
+      s.justEvaluated = false;
+    } else {
+      s.expression += k;
+      s.justEvaluated = false;
+    }
+    s.display = s.expression || '0';
+  }
+  updateCalcDisplay();
+}
+
+function updateCalcDisplay() {
+  document.getElementById('calcDisplay').textContent = calcState.display;
+  document.getElementById('calcHistory').innerHTML = calcState.history.map(h => escapeHtml(h)).join('<br>');
+}
+
+/* ---------- CALCULATOR DRAG ---------- */
+
+(function makeCalculatorDraggable() {
+  let drag = null;
+  document.addEventListener('mousedown', e => {
+    const head = e.target.closest('.calc-head');
+    if (!head) return;
+    const calc = document.getElementById('calculator');
+    const rect = calc.getBoundingClientRect();
+    drag = {
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top,
+    };
+    calc.style.left = rect.left + 'px';
+    calc.style.top = rect.top + 'px';
+    calc.style.right = 'auto';
+    calc.style.bottom = 'auto';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const calc = document.getElementById('calculator');
+    calc.style.left = (e.clientX - drag.offsetX) + 'px';
+    calc.style.top = (e.clientY - drag.offsetY) + 'px';
+  });
+  document.addEventListener('mouseup', () => { drag = null; });
+  // Touch support
+  document.addEventListener('touchstart', e => {
+    const head = e.target.closest('.calc-head');
+    if (!head) return;
+    const calc = document.getElementById('calculator');
+    const rect = calc.getBoundingClientRect();
+    const t = e.touches[0];
+    drag = { offsetX: t.clientX - rect.left, offsetY: t.clientY - rect.top };
+    calc.style.left = rect.left + 'px';
+    calc.style.top = rect.top + 'px';
+    calc.style.right = 'auto';
+    calc.style.bottom = 'auto';
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!drag) return;
+    const calc = document.getElementById('calculator');
+    const t = e.touches[0];
+    calc.style.left = (t.clientX - drag.offsetX) + 'px';
+    calc.style.top = (t.clientY - drag.offsetY) + 'px';
+  }, { passive: true });
+  document.addEventListener('touchend', () => { drag = null; });
+})();
+
+/* ------------------------------------------------------------
+   SECTION 14: RETAKE / HOME
+   ------------------------------------------------------------ */
+
+function retakeExam() {
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('reviewScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+  document.title = 'JAMB CBT 2026';
+}
+
+function goHome() {
+  retakeExam();
+}
+
+/* ------------------------------------------------------------
+   SECTION 15: KEYBOARD SHORTCUTS
+   ------------------------------------------------------------ */
+document.addEventListener('keydown', e => {
+  if (EXAM_STATE.submitted) return;
+  if (!document.getElementById('examScreen') || document.getElementById('examScreen').classList.contains('hidden')) return;
+  const k = e.key;
+  if (['1', '2', '3', '4'].includes(k)) {
+    const idx = parseInt(k) - 1;
+    if (idx < EXAM_STATE.subjects.length) switchSubject(idx);
+  } else if (k === 'ArrowRight' || k === 'n' || k === 'N') {
+    goNextQuestion();
+  } else if (k === 'ArrowLeft' || k === 'p' || k === 'P') {
+    goPrevQuestion();
+  } else if (k === 'f' || k === 'F') {
+    toggleFlag();
+  } else if (k === 'a' || k === 'A' || k === 'b' || k === 'B' || k === 'c' || k === 'C' || k === 'd' || k === 'D') {
+    const idx = k.toLowerCase().charCodeAt(0) - 97;
+    const q = getCurrentQuestion();
+    if (idx < q.options.length) selectOption(idx);
+  }
+});
+
+/* ------------------------------------------------------------
+   SECTION 16: INITIALIZATION
+   ------------------------------------------------------------ */
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildQuestionPool();
+  // Pre-fill candidate fields
+  document.getElementById('candName').value = 'CHINEDU LIVINGSTONE UDOCHUKWU';
+  document.getElementById('candReg').value = '202612345678';
+  // Prevent accidental unload during exam
+  window.addEventListener('beforeunload', e => {
+    if (!EXAM_STATE.submitted && !document.getElementById('examScreen').classList.contains('hidden')) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+});
+
+</script>
+</body>
+</html>
